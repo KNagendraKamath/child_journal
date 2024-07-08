@@ -2,10 +2,21 @@
 
 public interface RuleSet
 {
-   List<Rule> Rules(int recordCount);
+   AxisFactory Factory(int recordCount);
 }
 
 public interface Rule
 {
 
+}
+
+public class AxisFactory
+{
+    private readonly List<Rule> _rules;
+
+    public AxisFactory(List<Rule> rules)
+    {
+        _rules = rules;
+    }
+    public int Count => _rules.Count;
 }
