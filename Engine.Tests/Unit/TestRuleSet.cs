@@ -31,7 +31,7 @@ internal class TestRuleSet:RuleSet
     {
         public void Check(double min, double max)
         {
-            if (max - min < range) return;
+            if (max - min > range) return;
             throw new XAxisException(new XAxis(min, max, 0.1, "month"));
         }
     }
