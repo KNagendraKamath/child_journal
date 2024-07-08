@@ -14,9 +14,14 @@ public class RuleSetTest
     [Fact]
     public void XaxisTest()
     {
-        var dump=new GraphDataDump(new TestRuleSet().Factory(0).XAxis(0,0.5));
-        Assert.Equal(new XAxisDto(0,0.5,0.1,"month"), dump.xAxisDto);
+        AssertXAxis(0, 0, 0.5);
 
     }
+    private void AssertXAxis(int recordCount, double min, double max)
+    {
+        var dump = new GraphDataDump(new TestRuleSet().Factory(recordCount).XAxis(min, max));
+        Assert.Equal(new XAxisDto(min, max, 0.1, "month"), dump.xAxisDto);
+    }
+
 }
 
