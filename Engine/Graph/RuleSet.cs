@@ -1,4 +1,5 @@
-﻿namespace GraphEngine.Graph;
+﻿
+namespace GraphEngine.Graph;
 
 public interface RuleSet
 {
@@ -7,7 +8,7 @@ public interface RuleSet
 
 public interface Rule
 {
-
+    void Check(double min, double max);
 }
 
 public class AxisFactory
@@ -19,4 +20,28 @@ public class AxisFactory
         _rules = rules;
     }
     public int Count => _rules.Count;
+
+    public XAxis XAxis(double min,double max)
+    {
+        try
+        {
+            foreach (var rule in _rules)
+            {
+                rule.Check(min, max);
+            }
+            throw new InvalidProgramException("No Rule Matched");
+        }
+        catch (XAxisException e)
+        {
+            return e.XAxis;
+        }
+    }
+    public class XAxisException : Exception
+    {
+        internal readonly XAxis XAxis;
+        public XAxisException(XAxis xAxis)
+        {
+            XAxis = xAxis;
+        }
+    }
 }

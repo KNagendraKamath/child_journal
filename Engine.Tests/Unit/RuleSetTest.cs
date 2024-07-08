@@ -1,5 +1,5 @@
 ﻿using Xunit;
-
+using static GraphEngine.Tests.Unit.GraphDataDump;
 namespace GraphEngine.Tests.Unit;
 
 public class RuleSetTest
@@ -14,6 +14,9 @@ public class RuleSetTest
     [Fact]
     public void XaxisTest()
     {
+        var dump=new GraphDataDump(new TestRuleSet().Factory(0).XAxis(0,0.5));
+        Assert.Equal(new XAxisDto(0,0.5,0.1,"month"), dump.xAxisDto);
+
     }
 }
 
