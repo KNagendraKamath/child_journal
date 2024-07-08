@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Reference Include="Engine">
-      <HintPath>..\..\WaitList_Mediator\Engine\bin\Debug\net8.0\Engine.dll</HintPath>
+      <HintPath>..\packages\Engine.dll</HintPath>
     </Reference>
   </ItemGroup>
 
