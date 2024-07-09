@@ -9,7 +9,7 @@ namespace GraphEngine.Tests.Unit;
 internal class TestRuleSet:RuleSet
 {
     private static readonly (IEnumerable<int> Range, AxisFactory factory) Default =([], 
-        new AxisFactory ([new RangeTestRule(5), new RangeTestRule(10), new RangeTestRule(15)]));
+        new AxisFactory ([new RangeTestRule(0.5), new RangeTestRule(10), new RangeTestRule(15)]));
     private readonly List<(IEnumerable<int> Range,AxisFactory factory)> _rules= 
     [
         (Enumerable.Range(0, 1), new AxisFactory( [new SingleTestRule()])),

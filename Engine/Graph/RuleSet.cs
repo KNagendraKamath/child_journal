@@ -25,10 +25,7 @@ public class AxisFactory
     {
         try
         {
-            foreach (var rule in _rules)
-            {
-                rule.Check(min, max);
-            }
+            foreach (var rule in _rules) rule.Check(min, max);
             throw new InvalidProgramException("No Rule Matched");
         }
         catch (XAxisException e)
