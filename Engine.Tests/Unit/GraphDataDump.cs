@@ -9,17 +9,17 @@ namespace GraphEngine.Tests.Unit
 {
     internal class GraphDataDump : GraphDataVisitor
     {
-        internal XAxisDto xAxisDto;
-        public GraphDataDump(Axis xAxis)
+        internal AxisDto axisDto;
+        public GraphDataDump(Axis axis)
         {
-           xAxis.Accept(this);
+           axis.Accept(this);
         }
 
-        public void Visit(Axis xAxis, double min, double max, double step, string label)
+        public void Visit(Axis axis, double min, double max, double step, string label)
         {
-            xAxisDto = new XAxisDto(min, max, step, label);
+            axisDto = new AxisDto(min, max, step, label);
         }
-        internal record XAxisDto(double Min, double Max, double Step, string Label);
+        internal record AxisDto(double Min, double Max, double Step, string Label);
     }
 }
 

@@ -15,7 +15,7 @@ internal class TestRuleSet:RuleSet
         (Enumerable.Range(0, 1), new AxisFactory( [new SingleTestRule()])),
         (Enumerable.Range(1, 1), new AxisFactory([new RangeTestRule(5),new RangeTestRule(10)]))
     ];
-
+    internal AxisFactory this[IEnumerable<int> range] => _rules.FirstOrDefault(r => r.Range == range, defaultValue: Default).factory;
     public AxisFactory Factory(int recordCount) =>
         _rules.FirstOrDefault(r => r.Range.Contains(recordCount), defaultValue: Default).factory;
 
@@ -23,7 +23,7 @@ internal class TestRuleSet:RuleSet
     {
         public void Check(double min, double max)
         {
-            throw new XAxisException(new Axis(min, max,0.1,"month"));
+            throw new AxisException(new Axis(min, max,0.1,"month"));
         }
     }
 
@@ -32,7 +32,7 @@ internal class TestRuleSet:RuleSet
         public void Check(double min, double max)
         {
             if (max - min > range) return;
-            throw new XAxisException(new Axis(min, max, 0.1, "month"));
+            throw new AxisException(new Axis(min, max, 0.1, "month"));
         }
     }
 }

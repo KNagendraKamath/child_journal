@@ -24,12 +24,12 @@ public class RuleSetTest
     }
     private void AssertXAxis(int recordCount, double min, double max)
     {
-        var dump = new GraphDataDump(new TestRuleSet().Factory(recordCount).XAxis(min, max));
-        Assert.Equal(new XAxisDto(min, max, 0.1, "month"), dump.xAxisDto);
+        var dump = new GraphDataDump(new TestRuleSet().Factory(recordCount).Axis(min, max));
+        Assert.Equal(new AxisDto(min, max, 0.1, "month"), dump.axisDto);
     }
     private void AssertXAxisThrows(int recordCount, double min, double max)
     {
-        Assert.Throws<InvalidProgramException>(()=> new TestRuleSet().Factory(recordCount).XAxis(min, max));
+        Assert.Throws<InvalidProgramException>(()=> new TestRuleSet().Factory(recordCount).Axis(min, max));
     }
 
 }

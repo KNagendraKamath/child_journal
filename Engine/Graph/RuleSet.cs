@@ -3,7 +3,7 @@ namespace GraphEngine.Graph;
 
 public interface RuleSet
 {
-   AxisFactory Factory(int recordCount);
+    AxisFactory Factory(int recordCount);
 }
 
 public interface Rule
@@ -21,24 +21,24 @@ public class AxisFactory
     }
     public int Count => _rules.Count;
 
-    public Axis XAxis(double min,double max)
+    public Axis Axis(double min,double max)
     {
         try
         {
             foreach (var rule in _rules) rule.Check(min, max);
             throw new InvalidProgramException("No Rule Matched");
         }
-        catch (XAxisException e)
+        catch (AxisException e)
         {
-            return e.XAxis;
+            return e.Axis;
         }
     }
-    public class XAxisException : Exception
+    public class AxisException : Exception
     {
-        internal readonly Axis XAxis;
-        public XAxisException(Axis xAxis)
+        internal readonly Axis Axis;
+        public AxisException(Axis axis)
         {
-            XAxis = xAxis;
+            Axis = axis;
         }
     }
 }
