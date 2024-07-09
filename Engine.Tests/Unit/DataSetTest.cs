@@ -22,11 +22,12 @@ namespace GraphEngine.Tests.Unit
                 Age,
                 Weight,
                 new TestRuleSet(),
-                new XAxis(0,0.5, 0.1, "month"), 
+                new Axis(0,0.5, 0.1, "month"), 
                 new object()
                 );
             AssertXAxis(dataset, 0, 0.5);
         }
+        [Fact]
         public void NonEmptyDataSet()
         {
             var dataset = new DataSet(
@@ -38,13 +39,12 @@ namespace GraphEngine.Tests.Unit
                 Age,
                 Weight,
                 new TestRuleSet(),
-                new XAxis(0, 0.5, 0.1, "month"),
+                new Axis(0, 0.5, 0.1, "month"),
                 new object()
                 );
             AssertXAxis(dataset, 0.1, 0.3);
 
         }
-
         private ResultRecord Record(params(Column column, object value)[] fieldValues)
         {
             return new ResultRecord(fieldValues.ToDictionary(x=>x.column.ToString(),x=>x.value));

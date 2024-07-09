@@ -10,7 +10,7 @@ public class DataSet
     private readonly Column _xColumn;
     private readonly Column _yColumn;
     private readonly object _memento;
-    private readonly XAxis _defaultXAxis;
+    private readonly Axis _defaultXAxis;
     private List<DataSetRecord>? _records = null;
 
     private List<DataSetRecord> Records
@@ -23,7 +23,7 @@ public class DataSet
     }
 
 
-    public DataSet(CompleteList completeList, Column xColumn, Column yColumn, RuleSet ruleSet, XAxis defaultXAxis, object memento)
+    public DataSet(CompleteList completeList, Column xColumn, Column yColumn, RuleSet ruleSet, Axis defaultXAxis, object memento)
     {
         _ruleSet = ruleSet;
         _completeList = completeList;
@@ -33,10 +33,10 @@ public class DataSet
         _defaultXAxis = defaultXAxis;
     }
 
-    public XAxis XAxis()
+    public Axis XAxis()
     {
         if (_completeList.Count == 0) return _defaultXAxis;
-        return _ruleSet.Factory(_completeList.Count).XAxis(_records.First().xValue,_records.Last().xValue);
+        return _ruleSet.Factory(_completeList.Count).XAxis(Records.First().xValue, Records.Last().xValue);
     }
     internal class RecordExtraction:ListVisitor
     {

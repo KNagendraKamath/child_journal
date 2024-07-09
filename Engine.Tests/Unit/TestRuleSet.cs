@@ -23,7 +23,7 @@ internal class TestRuleSet:RuleSet
     {
         public void Check(double min, double max)
         {
-            throw new XAxisException(new XAxis(min, max,0.1,"month"));
+            throw new XAxisException(new Axis(min, max,0.1,"month"));
         }
     }
 
@@ -32,7 +32,7 @@ internal class TestRuleSet:RuleSet
         public void Check(double min, double max)
         {
             if (max - min > range) return;
-            throw new XAxisException(new XAxis(min, max, 0.1, "month"));
+            throw new XAxisException(new Axis(min, max, 0.1, "month"));
         }
     }
 }

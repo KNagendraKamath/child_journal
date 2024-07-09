@@ -1,14 +1,14 @@
 ﻿
 namespace GraphEngine.Graph
 {
-    public class XAxis
+    public class Axis
     {
         private readonly double min;
         private readonly double max;
         private readonly double step;
         private readonly string label;
 
-        public XAxis(double min, double max, double step, string label)
+        public Axis(double min, double max, double step, string label)
         {
             this.min = min;
             this.max = max;

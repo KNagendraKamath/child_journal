@@ -10,12 +10,12 @@ namespace GraphEngine.Tests.Unit
     internal class GraphDataDump : GraphDataVisitor
     {
         internal XAxisDto xAxisDto;
-        public GraphDataDump(XAxis xAxis)
+        public GraphDataDump(Axis xAxis)
         {
            xAxis.Accept(this);
         }
 
-        public void Visit(XAxis xAxis, double min, double max, double step, string label)
+        public void Visit(Axis xAxis, double min, double max, double step, string label)
         {
             xAxisDto = new XAxisDto(min, max, step, label);
         }

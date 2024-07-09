@@ -21,7 +21,7 @@ public class AxisFactory
     }
     public int Count => _rules.Count;
 
-    public XAxis XAxis(double min,double max)
+    public Axis XAxis(double min,double max)
     {
         try
         {
@@ -35,8 +35,8 @@ public class AxisFactory
     }
     public class XAxisException : Exception
     {
-        internal readonly XAxis XAxis;
-        public XAxisException(XAxis xAxis)
+        internal readonly Axis XAxis;
+        public XAxisException(Axis xAxis)
         {
             XAxis = xAxis;
         }
