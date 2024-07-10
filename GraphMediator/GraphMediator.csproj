@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Engine\GraphEngine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Engine">
       <HintPath>..\packages\Engine.dll</HintPath>
     </Reference>

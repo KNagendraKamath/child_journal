@@ -22,6 +22,16 @@ internal static class ChildJournalColumns
         (column, value) => throw new ArgumentException("Not a valid column to search"), 
         Double);
 
+    internal static readonly Column HeadCircumference = new(
+        nameof(HeadCircumference),
+        (column, value) => throw new ArgumentException("Not a valid column to search"),
+        Double);
+
+    internal static readonly Column BMI = new(
+        nameof(BMI),
+        (column, value) => throw new ArgumentException("Not a valid column to search"),
+        Double);
+
     internal static readonly Column DateColumn = new(
         nameof(DateColumn),
         (column, value) => new Criteria.DateRangeCriterion(column, (DateRange)value),

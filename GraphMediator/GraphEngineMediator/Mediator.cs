@@ -15,6 +15,6 @@ internal class Mediator
 
     internal void CollectExaminationData(string jsonString)
     {
-        _patientInfo = JsonSerializer.Deserialize<PatientInformation>(jsonString)!;
+        throw new NotImplementedException();
     }
 }

@@ -16,7 +16,7 @@ public class MediatorTest
     }
 
     private string ExaminationJsonString(int patientId) =>
-         JsonSerializer.Serialize(patient);
+        throw new NotImplementedException();
 
     private record PatientInformation(int patientId, DateOnly birthDate);
 
