@@ -20,5 +20,7 @@ namespace GraphEngine.Graph
         {
             visitor.Visit(this, min, max, step, label); 
         }
+
+        public bool Contains(double patientAge) => patientAge >= min && patientAge <= max;
     }
 }
