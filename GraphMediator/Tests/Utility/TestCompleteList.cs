@@ -7,7 +7,7 @@ namespace GraphMediator.Tests.Utility
     public static class TestCompleteList
     {
         public static CompleteList completeList = new([
-            Record((ExaminationDate,"22-05-2005"),(Weight,2.5)),
+            Record((ExaminationDate,"22-04-2005"),(Weight,2.5)),
             Record((ExaminationDate,"20-05-2005"),(Weight,3.67)),
             Record((ExaminationDate,"15-07-2005"),(Weight,5.3)),
             Record((ExaminationDate,"21-09-2005"),(Weight,6.32)),

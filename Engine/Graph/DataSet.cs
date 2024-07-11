@@ -63,7 +63,7 @@ namespace GraphEngine.Graph
 
             private double YValue(IReadOnlyDictionary<string, object> fieldValues)
             {
-                return fieldValues.TryGetValue(_xColumn.ToString(), out object value) ? (double)value : 
+                return fieldValues.TryGetValue(_yColumn.ToString(), out object value) ? (double)value : 
                     CalculateBMI((double)fieldValues["Weight"], (double)fieldValues["Height"]);
             }
 
@@ -80,8 +80,8 @@ namespace GraphEngine.Graph
 
             private double CalculateAge(string date)
             {
-                DateTime examinationDate = DateTime.ParseExact(date, "dd-MM-YYYY", null, System.Globalization.DateTimeStyles.None);
-                DateTime birthDate = DateTime.ParseExact("22-04-2005","dd-MM-YYYY", null, System.Globalization.DateTimeStyles.None);
+                DateTime examinationDate = DateTime.ParseExact(date, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None);
+                DateTime birthDate = DateTime.ParseExact("22-04-2005","dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None);
                 return (examinationDate - birthDate).TotalDays/365.25;
             }
 
