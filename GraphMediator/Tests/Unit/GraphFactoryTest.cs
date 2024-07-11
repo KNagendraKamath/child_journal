@@ -21,7 +21,7 @@ namespace GraphMediator.Tests.Unit
                 Age,
                 Weight, 
                 TestSources.ReferenceData,
-                new XTestRuleSet(),
+                new AgeRuleSet(),
                 new YTestRuleSet(),
                 new Axis(0, 1, 0.1, "Age"),
                 new Axis(0, 1, 0.1, "Weight"),
