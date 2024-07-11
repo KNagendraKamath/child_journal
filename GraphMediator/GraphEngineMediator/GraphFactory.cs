@@ -10,7 +10,7 @@ namespace GraphMediator.GraphEngineMediator
     {
         private readonly Column _xColumn;
         private readonly Column _yColumn;
-        private readonly Dictionary<Column, List<ReferenceRecord>> _referenceSources;
+        private readonly List<ReferenceRecord> _referenceRecords;
         private readonly RuleSet _xRuleSet;
         private readonly RuleSet _yRuleSet;
         private readonly Axis _defaultXAxis;
@@ -18,12 +18,12 @@ namespace GraphMediator.GraphEngineMediator
         private readonly DateTime _birthdate;
         private readonly object _memento;
 
-        public GraphFactory(Column xColumn, Column yColumn, Dictionary<Column, List<ReferenceRecord>> referenceSources, RuleSet xRuleSet, RuleSet yRuleSet, Axis defaultXAxis, 
+        public GraphFactory(Column xColumn, Column yColumn, List<ReferenceRecord> referenceRecords, RuleSet xRuleSet, RuleSet yRuleSet, Axis defaultXAxis, 
             Axis defaultYAxis, DateTime birthdate, object memento)
         {
             _xColumn = xColumn;
             _yColumn = yColumn;
-            _referenceSources = referenceSources;
+            _referenceRecords = referenceRecords;
             _xRuleSet = xRuleSet;
             _yRuleSet = yRuleSet;
             _defaultXAxis = defaultXAxis;
@@ -49,7 +49,7 @@ namespace GraphMediator.GraphEngineMediator
 
         private DataSet ExaminationDataSet()
         {
-            return new DataSet(TestCompleteList.completeList, Age, Weight, , new Axis(0,0.5,1,"Alder"),null);
+            return new DataSet(TestCompleteList.completeList, Age, Weight, new Axis(0,0.5,1,"Alder"),null);
         }
         
     }
