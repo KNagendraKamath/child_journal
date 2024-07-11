@@ -10,7 +10,7 @@ namespace GraphMediator.GraphEngineMediator
     {
         private readonly Column _xColumn;
         private readonly Column _yColumn;
-        private readonly Dictionary<Column, List<ReferenceRecord>> _referenceSources;
+        private readonly List<ReferenceRecord> _referenceRecords;
         private readonly RuleSet _xRuleSet;
         private readonly RuleSet _yRuleSet;
         private readonly Axis _defaultXAxis;
@@ -18,12 +18,12 @@ namespace GraphMediator.GraphEngineMediator
         private readonly DateTime _birthdate;
         private readonly object _memento;
 
-        public GraphFactory(Column xColumn, Column yColumn, Dictionary<Column, List<ReferenceRecord>> referenceSources, RuleSet xRuleSet, RuleSet yRuleSet, Axis defaultXAxis, 
+        public GraphFactory(Column xColumn, Column yColumn, List<ReferenceRecord> referenceRecords, RuleSet xRuleSet, RuleSet yRuleSet, Axis defaultXAxis, 
             Axis defaultYAxis, DateTime birthdate, object memento)
         {
             _xColumn = xColumn;
             _yColumn = yColumn;
-            _referenceSources = referenceSources;
+            _referenceRecords = referenceRecords;
             _xRuleSet = xRuleSet;
             _yRuleSet = yRuleSet;
             _defaultXAxis = defaultXAxis;
@@ -36,17 +36,21 @@ namespace GraphMediator.GraphEngineMediator
         {
             var examinationDataSet = ExaminationDataSet();
             var xAxis = examinationDataSet.XAxis();
-            var referenceDataSets = ReferenceDataSets();
+            var referenceDataSets = ReferenceDataSets(xAxis);
             referenceDataSets.Add(examinationDataSet);
             var yAxis = referenceDataSets.YAxis(_yRuleSet, _defaultYAxis);
             return new GraphData(xAxis, yAxis, referenceDataSets);
         }
 
-        private List<DataSet> ReferenceDataSets()
+        private List<BasicDataSet> ReferenceDataSets(Axis xAxis)
         {
-            throw new NotImplementedException();
+            
+            var dataSetRecords =  _referenceRecords
+                .Where(r=>xAxis.Contains(r.age))
+                .Select(r=>new DataSet.DataSetRecord(_xColumn, r.age, _yColumn, r.mean))
+                .ToList();
+            return [new BasicDataSet(dataSetRecords, _xColumn, _yColumn, _memento)];
         }
-
         private DataSet ExaminationDataSet()
         {
             return new DataSet(TestCompleteList.completeList, Age, Weight, _xRuleSet, new Axis(0, 0.5, 1, "Alder"), null);

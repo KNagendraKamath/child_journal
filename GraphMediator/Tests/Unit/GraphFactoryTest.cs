@@ -16,11 +16,10 @@ namespace GraphMediator.Tests.Unit
         [Fact]
         public void CreateFactory()
         {
-
             var factory = new GraphFactory(
                 Age,
                 Weight,
-                TestSources.ReferenceData,
+                WhoReference.Data["Age/Weight/Girls"],
                 new AgeRuleSet(),
                 new YRuleSet("Weight"),
                 new Axis(0, 1, 0.1, "Age"),
