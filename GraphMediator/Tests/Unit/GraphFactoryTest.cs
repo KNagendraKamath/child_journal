@@ -19,12 +19,13 @@ namespace GraphMediator.Tests.Unit
 
             var factory = new GraphFactory(
                 Age,
-                Weight, 
+                Weight,
                 TestSources.ReferenceData,
                 new AgeRuleSet(),
                 new YTestRuleSet(),
                 new Axis(0, 1, 0.1, "Age"),
                 new Axis(0, 1, 0.1, "Weight"),
+                new DateTime(2005, 04, 22),
                 null);
             var graphData = factory.GraphData(TestSources.ExaminationData);
             Assert.True(true);

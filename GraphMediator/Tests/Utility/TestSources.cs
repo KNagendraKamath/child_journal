@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphMediator.GraphEngineMediator;
 using static GraphEngine.Tests.Unit.ChildJournalColumns;
 
 namespace GraphMediator.Tests.Utility;
@@ -20,6 +21,4 @@ internal class TestSources
     internal static CompleteList ExaminationData = new CompleteList([]);
 }
 
-
-internal record ReferenceRecord(int day, int month, int year, double positive2, double positive1, double mean, double negative1, double negative2);
 

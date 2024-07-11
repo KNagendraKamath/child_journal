@@ -14,10 +14,11 @@ namespace GraphMediator.GraphEngineMediator
         private readonly RuleSet _yRuleSet;
         private readonly Axis _defaultXAxis;
         private readonly Axis _defaultYAxis;
+        private readonly DateTime _birthdate;
         private readonly object _memento;
 
         public GraphFactory(Column xColumn, Column yColumn, Dictionary<Column, List<ReferenceRecord>> referenceSources, RuleSet xRuleSet, RuleSet yRuleSet, Axis defaultXAxis, 
-            Axis defaultYAxis, object memento)
+            Axis defaultYAxis, DateTime birthdate, object memento)
         {
             _xColumn = xColumn;
             _yColumn = yColumn;
@@ -26,6 +27,7 @@ namespace GraphMediator.GraphEngineMediator
             _yRuleSet = yRuleSet;
             _defaultXAxis = defaultXAxis;
             _defaultYAxis = defaultYAxis;
+            _birthdate = birthdate;
             _memento = memento;
         }   
 
