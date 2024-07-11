@@ -3,18 +3,19 @@ using static GraphEngine.Graph.AxisFactory;
 
 namespace GraphMediator.GraphEngineMediator
 {
-    internal class YTestRuleSet : RuleSet
+    internal class YRuleSet(string label) : RuleSet
     {
+      
         public AxisFactory Factory(int recordCount)
         {
-            throw new NotImplementedException();
+            return new AxisFactory([new SingleTestRule(label)]);
         }
     }
-    internal class SingleTestRule : Rule
+    internal class SingleTestRule(string label) : Rule
     {
         public void Check(double min, double max)
         {
-            throw new AxisException(new Axis(min, max, 0.1, "month"));
+            throw new AxisException(new Axis(min, max, 1, label));
         }
     }
 }

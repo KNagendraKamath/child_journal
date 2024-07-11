@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GraphMediator.GraphEngineMediator;
-using static GraphEngine.Tests.Unit.ChildJournalColumns;
+using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
 
 namespace GraphMediator.Tests.Utility;
 internal class TestSources

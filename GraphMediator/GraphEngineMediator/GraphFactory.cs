@@ -49,7 +49,7 @@ namespace GraphMediator.GraphEngineMediator
 
         private DataSet ExaminationDataSet()
         {
-            return new DataSet(TestCompleteList.completeList, Age, Weight, , new Axis(0,0.5,1,"Alder"),null);
+            return new DataSet(TestCompleteList.completeList, Age, Weight, _xRuleSet, new Axis(0, 0.5, 1, "Alder"), null);
         }
         
     }
