@@ -1,5 +1,6 @@
 ﻿using Engine.ResultRecords;
 using GraphEngine.Graph;
+using System;
 
 namespace GraphEngine.Graph
 {
@@ -57,8 +58,33 @@ namespace GraphEngine.Graph
             }
             public void Visit(ResultRecord record, IReadOnlyDictionary<string, object> fieldValues)
             {
-                _records.Add(new DataSetRecord(_xColumn, (double)fieldValues[_xColumn.ToString()], _yColumn, (double)fieldValues[_yColumn.ToString()]));
+                _records.Add(new DataSetRecord(_xColumn, XValue(fieldValues), _yColumn, YValue(fieldValues)));
             }
+
+            private double YValue(IReadOnlyDictionary<string, object> fieldValues)
+            {
+                return fieldValues.TryGetValue(_xColumn.ToString(), out object value) ? (double)value : 
+                    CalculateBMI((double)fieldValues["Weight"], (double)fieldValues["Height"]);
+            }
+
+            private double CalculateBMI(double weight, double height)
+            {
+                return Math.Round(weight / (height / 100 * (height / 100)),1);
+            }
+
+            private double XValue(IReadOnlyDictionary<string, object> fieldValues)
+            {
+                return fieldValues.TryGetValue(_xColumn.ToString(), out object value)? (double)value : 
+                    CalculateAge(fieldValues["ExaminationDate"].ToString()) ;
+            }
+
+            private double CalculateAge(string date)
+            {
+                DateTime examinationDate = DateTime.ParseExact(date, "dd-MM-YYYY", null, System.Globalization.DateTimeStyles.None);
+                DateTime birthDate = DateTime.ParseExact("22-04-2005","dd-MM-YYYY", null, System.Globalization.DateTimeStyles.None);
+                return (examinationDate - birthDate).TotalDays/365.25;
+            }
+
             internal List<DataSetRecord> Results()
             {
                 _records.Sort((left, right) => left.xValue.CompareTo(right.xValue));
