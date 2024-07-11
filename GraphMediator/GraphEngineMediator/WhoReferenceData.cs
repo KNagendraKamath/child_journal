@@ -1,5 +1,3 @@
-using GraphMediator.Tests.Utility;
-
 namespace GraphMediator.GraphEngineMediator;
 
 // Understands WHO-sourced child health statistics
