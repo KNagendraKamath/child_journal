@@ -2,7 +2,7 @@
 using System;
 using static Engine.ResultRecords.Column;
 
-namespace GraphEngine.Tests.Unit;
+namespace GraphMediator.GraphEngineMediator;
 
 internal static class ChildJournalColumns
 {
@@ -35,5 +35,10 @@ internal static class ChildJournalColumns
     internal static readonly Column DateColumn = new(
         nameof(DateColumn),
         (column, value) => new Criteria.DateRangeCriterion(column, (DateRange)value),
+        DateRange);
+
+    internal static readonly Column ExaminationDate = new(
+        nameof(ExaminationDate),
+        (column, value) => throw new ArgumentException("Not a valid column to search"),
         DateRange);
 }

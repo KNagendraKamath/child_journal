@@ -2,6 +2,7 @@
 using GraphEngine.Graph;
 using GraphEngine.Graph.Extensions;
 using GraphMediator.Tests.Utility;
+using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
 
 namespace GraphMediator.GraphEngineMediator
 {
@@ -48,7 +49,8 @@ namespace GraphMediator.GraphEngineMediator
 
         private DataSet ExaminationDataSet()
         {
-            throw new NotImplementedException();
+            return new DataSet(TestCompleteList.completeList, Age, Weight, , new Axis(0,0.5,1,"Alder"),null);
         }
+        
     }
 }
