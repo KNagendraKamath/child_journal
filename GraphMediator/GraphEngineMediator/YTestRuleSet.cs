@@ -7,7 +7,7 @@ namespace GraphMediator.GraphEngineMediator
     {
         public AxisFactory Factory(int recordCount)
         {
-            new AxisFactory(RuleSet)
+            throw new NotImplementedException();
         }
     }
     internal class SingleTestRule : Rule
