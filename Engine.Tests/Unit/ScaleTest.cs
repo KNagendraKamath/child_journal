@@ -20,8 +20,12 @@ namespace GraphEngine.Tests.Unit
         [Fact]
         public void NoRoundingScale()
         {
-            Assert.Equal(new Scale(50.cm(), 70.cm(), 5.cm()), d_cm.Scale(50.cm(), 70.cm(),10));
-            Assert.Equal(new Scale(50.cm(), 70.cm(), 5.cm()), d_cm.Scale(52.5.cm(), 67.8.cm(),10));
+            Assert.Equal(
+                new Scale("TestDimension",50.cm(), 70.cm(), 5.cm()), 
+                d_cm.Axis(50.cm(), 70.cm(),10));
+            Assert.Equal(
+                new Scale("TestDimension", 50.cm(), 70.cm(), 5.cm()), 
+                d_cm.Axis(52.5.cm(), 67.8.cm(),10));
 ;       }
     }
 }
