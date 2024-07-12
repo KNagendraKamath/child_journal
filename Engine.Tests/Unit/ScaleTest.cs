@@ -57,7 +57,7 @@ namespace GraphEngine.Tests.Unit {
                new Scale("age Test", 0.Years(), 3.Years(), 0.25.Years()),
                d_age.Axis(0.Years(), 3.Years(), 12));
             Assert.Equal(
-               new Scale("age Test", 3.Years()+10.Months(), 4.Years(), 1.Weeks()),
+               new Scale("age Test", 199.Weeks(),209.Weeks(), 1.Weeks()),
                d_age.Axis(3.Years()+10.Months(), 4.Years(), 12));
 
 
