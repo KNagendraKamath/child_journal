@@ -4,10 +4,11 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-using Engine.Quantities;
-using static Engine.Quantities.IntervalQuantity;
+using GraphEngine.Quantities;
+using static GraphEngine.Quantities.IntervalQuantity;
 
-namespace Engine.Quantities {
+namespace GraphEngine.Quantities
+{
     // Understands a specific metric
     public class Unit {
         public static readonly Unit Millimeter = new();

@@ -4,7 +4,7 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-namespace Engine.Quantities;
+namespace GraphEngine.Quantities;
 
 // Understands a specific point on a scale
 public class IntervalQuantity  {

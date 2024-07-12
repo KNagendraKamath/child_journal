@@ -1,14 +1,16 @@
 /*
  * Copyright (c) 2024 by Fred George
  * May be used freely except for training; license required for training.
- * @author Fred George  fredgeorge@acm.org
+ * @author Fred George  frredgeorge@acm.org
  */
 
-using Engine.Quantities;
 using ExtensionMethods.Probability.Quantities;
+using GraphEngine.Quantities;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
-namespace GraphMediator.Tests.Unit;
+namespace GraphEngine.Tests.Unit;
 
 // Ensures Quantities operate correctly
 public class QuantityTest {
