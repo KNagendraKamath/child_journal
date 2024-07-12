@@ -7,40 +7,45 @@
 using GraphEngine.Quantities;
 using static GraphEngine.Quantities.IntervalQuantity;
 
-namespace GraphEngine.Quantities
-{
+namespace GraphEngine.Quantities {
     // Understands a specific metric
     public class Unit {
-        public static readonly Unit Millimeter = new();
-        public static readonly Unit Centimeter = new(10,Millimeter);
+        public static readonly Unit Millimeter = new("mm");
+        public static readonly Unit Centimeter = new("cm", 10, Millimeter);
 
-        public static readonly Unit Kilogram = new();
-        
-        public static readonly Unit Bmi = new();
-        
-        public static readonly Unit Day = new();
-        public static readonly Unit Week = new(7, Day);
-        // public static readonly Unit Year = new(365.2425, Day);
-        public static readonly Unit Year = new(365, Day);
-        public static readonly Unit Month = new(1.0 / 12, Year);
+        public static readonly Unit Kilogram = new("kg");
 
+        public static readonly Unit Bmi = new("BMI");
+
+        public static readonly Unit Day = new("days");
+        public static readonly Unit Week = new("weeks", 7, Day);
+        // public static readonly Unit Year = new("years", 365.2425, Day);
+        public static readonly Unit Year = new("years", 365, Day);
+        public static readonly Unit Month = new("months", 1.0 / 12, Year);
+
+        private readonly string _label;
         private readonly Unit _baseUnit;
         private readonly double _baseUnitRatio;
         private readonly double _offset;
 
-        private Unit() {
+        private Unit(string label) {
+            _label = label;
             _baseUnit = this;
             _baseUnitRatio = 1.0;
             _offset = 0.0;
         }
 
-        private Unit(double relativeRatio, Unit relativeUnit) : this(relativeRatio, 0.0, relativeUnit) { }
+        private Unit(string label, double relativeRatio, Unit relativeUnit) : this(label, relativeRatio, 0.0,
+            relativeUnit) { }
 
-        private Unit(double relativeRatio, double offset, Unit relativeUnit) {
+        private Unit(string label, double relativeRatio, double offset, Unit relativeUnit) {
+            _label = label;
             _baseUnit = relativeUnit._baseUnit;
             _baseUnitRatio = relativeRatio * relativeUnit._baseUnitRatio;
             _offset = offset;
         }
+
+        public override string ToString() => _label;
 
         internal double ConvertedAmount(double otherAmount, Unit other) {
             if (!this.IsCompatible(other)) throw new ArgumentException("Incompatible Units for arithmetic");
@@ -64,10 +69,10 @@ namespace ExtensionMethods.Probability.Quantities {
 
         public static RatioQuantity kg(this int amount) => new(amount, Unit.Kilogram);
         public static RatioQuantity kg(this double amount) => new(amount, Unit.Kilogram);
-        
+
         public static RatioQuantity BMI(this int amount) => new(amount, Unit.Bmi);
         public static RatioQuantity BMI(this double amount) => new(amount, Unit.Bmi);
-        
+
         public static RatioQuantity Days(this int amount) => new(amount, Unit.Day);
         public static RatioQuantity Days(this double amount) => new(amount, Unit.Day);
         public static RatioQuantity Weeks(this int amount) => new(amount, Unit.Week);

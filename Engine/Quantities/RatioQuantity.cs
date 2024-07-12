@@ -23,6 +23,9 @@ public class RatioQuantity : IntervalQuantity {
     public static RatioQuantity operator -(RatioQuantity q) => new(-q._amount, q._unit);
 
     public static RatioQuantity operator -(RatioQuantity left, RatioQuantity right) => left + -right;
+    
     public static double operator /(RatioQuantity left, RatioQuantity right) => 
         left._amount / left.ConvertedAmount(right);
+
+    public override string ToString() => $"{_amount} {_unit}";
 }
