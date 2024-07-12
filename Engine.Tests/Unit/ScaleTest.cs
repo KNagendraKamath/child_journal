@@ -20,7 +20,7 @@ namespace GraphEngine.Tests.Unit {
         private static readonly Dimension d_age = new(
             "age Test",
             Year,
-            new List<RatioQuantity> { 1.Weeks(), 2.Weeks(), 1.Months(), 2.Months(), 5.Months(), 0.5.Years(), 1.Years(), 2.Years(), 5.Years()});
+            new List<RatioQuantity> { 1.Weeks(), 2.Weeks(), 1.Months(), 0.25.Years(), 1.Years(), 2.Years(), 5.Years()});
 
         [Fact]
         public void SimpleMetricsScale() {
@@ -31,6 +31,36 @@ namespace GraphEngine.Tests.Unit {
                 new Scale("cm Test", 50.cm(), 70.cm(), 5.cm()),
                 d_cm.Axis(52.5.cm(), 67.8.cm(), 10));
             ;
+        }
+        [Fact]
+        public void Age()
+        {
+            Assert.Equal(
+                new Scale("age Test", 0.Weeks(), 14.Weeks(),2.Weeks()),
+                d_age.Axis(0.Weeks(),13.Weeks(), 12));
+            Assert.Equal(
+                new Scale("age Test", 0.Weeks(), 14.Weeks(), 2.Weeks()),
+                d_age.Axis(0.Years(), 0.2493.Years(), 12));
+            Assert.Equal(
+                new Scale("age Test", 0.Weeks(), 12.Months(), 1.Months()),
+                d_age.Axis(0.Years(), 1.Years(), 12));
+            Assert.Equal(
+               new Scale("age Test", 18.Months(), 24.Months(), 1.Months()),
+               d_age.Axis(1.5.Years(), 2.Years(), 12));
+            Assert.Equal(
+               new Scale("age Test", 0.Weeks(), 9.Weeks(), 1.Weeks()),
+               d_age.Axis(0.Months(), 2.Months(), 12));
+            Assert.Equal(
+               new Scale("age Test", 0.Years(), 2.Years(), 0.25.Years()),
+               d_age.Axis(0.Years(), 2.Years(), 12));
+            Assert.Equal(
+               new Scale("age Test", 0.Years(), 3.Years(), 0.25.Years()),
+               d_age.Axis(0.Years(), 3.Years(), 12));
+            Assert.Equal(
+               new Scale("age Test", 3.Years()+10.Months(), 4.Years(), 1.Weeks()),
+               d_age.Axis(3.Years()+10.Months(), 4.Years(), 12));
+
+
         }
     }
 }

@@ -70,5 +70,6 @@ public class QuantityTest {
         Assert.Equal(50.cm(), 50.cm().RoundUp(5.cm()));
         Assert.Equal(55.cm(), 54.9.cm().RoundUp(5.cm()));
         Assert.Equal(55.cm(), 50.1.cm().RoundUp(5.cm()));
+        Assert.Equal(1.Years(), 1.Years().RoundUp(2.Months()));
     }
 }
