@@ -59,9 +59,18 @@ namespace GraphMediator.GraphEngineMediator
         {
             var dataSetRecords =  _referenceRecords
                 .Where(r=>xAxis.Contains(r.age))
-                .Select(r=>new DataSetRecord(_xColumn, r.age, _yColumn, r.mean))
+                .Select(r=>new List<List<DataSetRecord>>
+                {
+                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.mean)},
+                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.negative1)},
+                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.negative2)},
+                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.positive1)},
+                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.positive2)}
+                })
                 .ToList();
-            return [new BasicDataSet(dataSetRecords, _xColumn, _yColumn, _memento)];
+
+            return dataSetRecords.SelectMany(x =>
+                x).Select(y=>new BasicDataSet(y, _xColumn, _yColumn, _memento)).ToList();
         }
 
         private BasicDataSet ExaminationDataSet()
