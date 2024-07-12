@@ -18,8 +18,16 @@ namespace GraphMediator.GraphEngineMediator
         private readonly DateTime _birthdate;
         private readonly object _memento;
 
-        public GraphFactory(Column xColumn, Column yColumn, List<ReferenceRecord> referenceRecords, RuleSet xRuleSet, RuleSet yRuleSet, Axis defaultXAxis, 
-            Axis defaultYAxis, DateTime birthdate, object memento)
+        public GraphFactory(
+            Column xColumn, 
+            Column yColumn, 
+            List<ReferenceRecord> referenceRecords, 
+            RuleSet xRuleSet,
+            RuleSet yRuleSet, 
+            Axis defaultXAxis, 
+            Axis defaultYAxis, 
+            DateTime birthdate, 
+            object memento)
         {
             _xColumn = xColumn;
             _yColumn = yColumn;

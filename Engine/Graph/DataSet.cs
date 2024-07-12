@@ -4,7 +4,6 @@ using System;
 
 namespace GraphEngine.Graph
 {
-
     public class DataSet
     {
         private readonly RuleSet _ruleSet;
@@ -23,7 +22,6 @@ namespace GraphEngine.Graph
                 return _records;
             }
         }
-
 
         public DataSet(CompleteList completeList, Column xColumn, Column yColumn, RuleSet ruleSet, Axis defaultXAxis, object memento)
         {
@@ -49,34 +47,28 @@ namespace GraphEngine.Graph
         {
             private readonly Column _xColumn;
             private readonly Column _yColumn;
-            private List<DataSetRecord> _records = new List<DataSetRecord>();
+            private List<DataSetRecord> _records = new();
+            
             internal RecordExtraction(CompleteList completeList, Column xColumn, Column yColumn)
             {
                 _xColumn = xColumn;
                 _yColumn = yColumn;
                 completeList.Accept(this);
             }
-            public void Visit(ResultRecord record, IReadOnlyDictionary<string, object> fieldValues)
-            {
-                _records.Add(new DataSetRecord(_xColumn, XValue(fieldValues), _yColumn, YValue(fieldValues)));
+            public void Visit(ResultRecord record, IReadOnlyDictionary<string, object> fieldValues) {
+                if (_records != null) // TODO: why is this check necessary?
+                    _records.Add(new DataSetRecord(_xColumn, XValue(fieldValues), _yColumn, YValue(fieldValues)));
             }
 
-            private double YValue(IReadOnlyDictionary<string, object> fieldValues)
-            {
-                return fieldValues.TryGetValue(_yColumn.ToString(), out object value) ? (double)value : 
-                    CalculateBMI((double)fieldValues["Weight"], (double)fieldValues["Height"]);
-            }
+            private double YValue(IReadOnlyDictionary<string, object> fieldValues) =>
+                fieldValues.TryGetValue(_yColumn.ToString(), out object value) ? (double)value : 
+                    BMI((double)fieldValues["Weight"], (double)fieldValues["Height"]);
 
-            private double CalculateBMI(double weight, double height)
-            {
-                return Math.Round(weight / (height / 100 * (height / 100)),1);
-            }
+            private double BMI(double weight, double height) => Math.Round(weight / (height / 100 * (height / 100)),1);
 
-            private double XValue(IReadOnlyDictionary<string, object> fieldValues)
-            {
-                return fieldValues.TryGetValue(_xColumn.ToString(), out object value)? (double)value : 
-                    CalculateAge(fieldValues["ExaminationDate"].ToString()) ;
-            }
+            private double XValue(IReadOnlyDictionary<string, object> fieldValues) =>
+                fieldValues.TryGetValue(_xColumn.ToString(), out object value)? (double)value : 
+                    CalculateAge(fieldValues["ExaminationDate"].ToString());
 
             private double CalculateAge(string date)
             {
