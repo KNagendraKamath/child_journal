@@ -4,7 +4,7 @@ using static GraphEngine.Quantities.Unit;
 
 namespace GraphMediator.GraphEngineMediator.Data
 {
-    internal class ChildJournalGraphSpec
+    internal static class ChildJournalGraphSpec
     {
         internal static readonly Dimension Age= new Dimension("Age", Year, new List<RatioQuantity>());
         internal static readonly Dimension Height = new Dimension("Height", Centimeter, new List<RatioQuantity>());
@@ -19,6 +19,17 @@ namespace GraphMediator.GraphEngineMediator.Data
         internal static readonly GraphSpec HeightWeight = new GraphSpec(Height, Weight, new object());
         internal static readonly GraphSpec HeightHeadCircumference = new GraphSpec(Height, HeadCircumference, new object());
         internal static readonly GraphSpec WeightHeadCircumference = new GraphSpec(Weight, HeadCircumference, new object());
+
+        internal static List<GraphSpec> graphSpecs = new List<GraphSpec>
+        {
+            AgeWeight,
+            AgeHeight,
+            AgeBMI,
+            AgeHeadCircumference,
+            HeightWeight,
+            HeightHeadCircumference,
+            WeightHeadCircumference
+        };
 
     }
 }
