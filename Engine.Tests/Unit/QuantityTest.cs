@@ -52,11 +52,23 @@ public class QuantityTest {
 
     [Fact]
     public void CrossUnitEquality() {
-        Assert.NotEqual(1.Days(), 1.Kilograms());
+        Assert.NotEqual(1.Days(), 1.kg());
     }
 
     [Fact]
     public void CrossUnitArithmetic() {
-        Assert.Throws<ArgumentException>(() => 3.Days() - 4.Centimeters());
+        Assert.Throws<ArgumentException>(() => 3.Days() - 4.cm());
+    }
+    [Fact]
+    public void RoundDown() { 
+        Assert.Equal(50.cm(), 50.cm().RoundDown(5.cm()));
+        Assert.Equal(50.cm(), 54.9.cm().RoundDown(5.cm()));
+    }
+    [Fact]
+    public void RoundUp()
+    {
+        Assert.Equal(50.cm(), 50.cm().RoundUp(5.cm()));
+        Assert.Equal(55.cm(), 54.9.cm().RoundUp(5.cm()));
+        Assert.Equal(55.cm(), 50.1.cm().RoundUp(5.cm()));
     }
 }

@@ -55,15 +55,15 @@ namespace GraphEngine.Quantities
 
 namespace ExtensionMethods.Probability.Quantities {
     public static class QuantityConstructors {
-        public static RatioQuantity Centimeters(this int amount) => new(amount, Unit.Centimeter);
-        public static RatioQuantity Centimeters(this double amount) => new(amount, Unit.Centimeter);
+        public static RatioQuantity cm(this int amount) => new(amount, Unit.Centimeter);
+        public static RatioQuantity cm(this double amount) => new(amount, Unit.Centimeter);
 
-        public static RatioQuantity Millimeters(this int amount) => new(amount, Unit.Millimeter);
-        public static RatioQuantity Millimeters(this double amount) => new(amount, Unit.Millimeter);
+        public static RatioQuantity mm(this int amount) => new(amount, Unit.Millimeter);
+        public static RatioQuantity mm(this double amount) => new(amount, Unit.Millimeter);
 
 
-        public static RatioQuantity Kilograms(this int amount) => new(amount, Unit.Kilogram);
-        public static RatioQuantity Kilograms(this double amount) => new(amount, Unit.Kilogram);
+        public static RatioQuantity kg(this int amount) => new(amount, Unit.Kilogram);
+        public static RatioQuantity kg(this double amount) => new(amount, Unit.Kilogram);
         
         public static RatioQuantity BMI(this int amount) => new(amount, Unit.Bmi);
         public static RatioQuantity BMI(this double amount) => new(amount, Unit.Bmi);

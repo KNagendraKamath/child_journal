@@ -20,4 +20,11 @@ public class Dimension
         _increments = increments;
     }
 
+    public Scale Scale(RatioQuantity min, RatioQuantity max, int maxStepCount)
+    {
+        var diff = max - min;
+        var step = _increments.First(i => diff/i <= maxStepCount);
+        return new Scale(min.RoundDown(step), max.RoundUp(step), step);
+    }
 }
+public record Scale(RatioQuantity min, RatioQuantity max, RatioQuantity step);
