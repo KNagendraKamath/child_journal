@@ -4,6 +4,8 @@ using Xunit;
 using static GraphEngine.Tests.Unit.TestColumns;
 using static GraphEngine.Graph.BasicDataSet;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 namespace GraphEngine.Tests.Unit;
 
 public class BasicDataSetTest {
