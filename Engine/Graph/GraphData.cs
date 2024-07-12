@@ -10,9 +10,9 @@ public class GraphData
 {
     private readonly Axis _xAxis;
     private readonly Axis _yAxis;
-    private readonly List<DataSet> _dataSets;
+    private readonly List<BasicDataSet> _dataSets;
 
-    public GraphData(Axis xAxis, Axis yAxis, List<DataSet> dataSets) 
+    public GraphData(Axis xAxis, Axis yAxis, List<BasicDataSet> dataSets) 
     {
         _xAxis = xAxis;
         _yAxis = yAxis;
@@ -24,7 +24,7 @@ public class GraphData
         _xAxis.Accept(visitor);
         _yAxis.Accept(visitor);
         visitor.PreVisit(_dataSets);
-        foreach (DataSet dataSet in _dataSets) dataSet.Accept(visitor);
+        foreach (var dataSet in _dataSets) dataSet.Accept(visitor);
         visitor.PostVisit(_dataSets);
         visitor.PostVisit(this);
     }

@@ -90,32 +90,5 @@ namespace GraphEngine.Graph
                 visitor.Visit(this);
             }
         }
-
-        internal static Axis YAxis(List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis)
-        {
-            var recordCount = dataSets.Sum(d => d.Records.Count());
-            if (recordCount == 0) return defaultYAxis;
-            var min = dataSets.Min(d => d.Records.Min(r => r.yValue));
-            var max = dataSets.Max(d => d.Records.Max(r => r.yValue));
-            return ruleSet.Factory(recordCount).Axis(min, max);
-        }
-
-        internal void Accept(GraphDataVisitor visitor)
-        {
-            visitor.PreVisit(this, _xColumn,_yColumn,_memento);
-            _defaultXAxis.Accept(visitor);
-            foreach(DataSetRecord dataSetRecord in Records) dataSetRecord.Accept(visitor);
-            visitor.PostVisit(this, _xColumn,_yColumn,_memento);
-        }
     }
 }
-namespace GraphEngine.Graph.Extensions
-{
-    public static class DataSetExtensions
-    {
-        public static Axis YAxis(this List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) => 
-            DataSet.YAxis(dataSets, ruleSet, defaultYAxis);
-
-    }
-}
-

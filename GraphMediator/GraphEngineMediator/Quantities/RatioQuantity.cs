@@ -4,13 +4,10 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-using System.Runtime.CompilerServices;
-using Engine.Order;
-
 namespace Engine.Quantities;
 
 // Understands a specific measurement
-public class RatioQuantity : IntervalQuantity, Orderable<RatioQuantity> {
+public class RatioQuantity : IntervalQuantity {
 
     internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
 
@@ -20,6 +17,4 @@ public class RatioQuantity : IntervalQuantity, Orderable<RatioQuantity> {
     public static RatioQuantity operator -(RatioQuantity q) => new(-q._amount, q._unit);
 
     public static RatioQuantity operator -(RatioQuantity left, RatioQuantity right) => left + -right;
-    
-    public bool IsBetterThan(RatioQuantity other) => base.IsBetterThan(other);
 }

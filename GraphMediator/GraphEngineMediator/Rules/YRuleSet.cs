@@ -11,6 +11,8 @@ namespace GraphMediator.GraphEngineMediator
             return new AxisFactory([new SingleTestRule(label)]);
         }
     }
+    
+    // TODO: This class is not used in the codebase. Should it be removed?
     internal class SingleTestRule(string label) : Rule
     {
         public void Check(double min, double max)

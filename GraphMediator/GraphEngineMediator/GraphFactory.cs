@@ -43,7 +43,8 @@ namespace GraphMediator.GraphEngineMediator
         internal GraphData GraphData(CompleteList list)
         {
             var examinationDataSet = ExaminationDataSet();
-            var xAxis = examinationDataSet.XAxis();
+            // var xAxis = examinationDataSet.XAxis();
+            var xAxis = new Axis(0, 1, 0.1, "place holder");
             var referenceDataSets = ReferenceDataSets(xAxis);
             referenceDataSets.Add(examinationDataSet);
             var yAxis = referenceDataSets.YAxis(_yRuleSet, _defaultYAxis);
@@ -52,16 +53,16 @@ namespace GraphMediator.GraphEngineMediator
 
         private List<BasicDataSet> ReferenceDataSets(Axis xAxis)
         {
-            
             var dataSetRecords =  _referenceRecords
                 .Where(r=>xAxis.Contains(r.age))
                 .Select(r=>new DataSet.DataSetRecord(_xColumn, r.age, _yColumn, r.mean))
                 .ToList();
             return [new BasicDataSet(dataSetRecords, _xColumn, _yColumn, _memento)];
         }
-        private DataSet ExaminationDataSet()
+        private BasicDataSet ExaminationDataSet()
         {
-            return new DataSet(TestCompleteList.completeList, Age, Weight, _xRuleSet, new Axis(0, 0.5, 1, "Alder"), null);
+            return new BasicDataSet(new(), Age, Weight, _memento);
+            // return new DataSet(TestCompleteList.completeList, Age, Weight, _xRuleSet, new Axis(0, 0.5, 1, "Alder"), _memento);
         }
         
     }
