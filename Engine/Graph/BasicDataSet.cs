@@ -19,9 +19,9 @@ namespace GraphEngine.Graph {
             _memento = memento;
         }
 
-        private double Max() => _records.Last().xValue;
+        internal double Max() => _records.Last().xValue;
 
-        private double Min() => _records.First().xValue;
+        internal double Min() => _records.First().xValue;
 
         internal static Axis YAxis(List<BasicDataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) {
             var recordCount = dataSets.Sum(d => d._records.Count());
@@ -37,7 +37,17 @@ namespace GraphEngine.Graph {
             foreach(DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
             visitor.PostVisit(this, _xColumn,_yColumn,_memento);
         }
+
+        public record DataSetRecord(Column xColumn, double xValue, Column yColumn, double yValue)
+        {
+            internal void Accept(GraphDataVisitor visitor)
+            {
+                visitor.Visit(this);
+            }
+        }
     }
+
+    
 }
 
 namespace GraphEngine.Graph.Extensions

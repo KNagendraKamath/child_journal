@@ -1,11 +1,5 @@
 ﻿using Engine.ResultRecords;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static GraphEngine.Graph.DataSet;
-
+using static GraphEngine.Graph.BasicDataSet;
 namespace GraphEngine.Graph
 {
     public interface GraphDataVisitor

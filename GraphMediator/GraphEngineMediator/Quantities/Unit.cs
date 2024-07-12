@@ -10,8 +10,9 @@ using static Engine.Quantities.IntervalQuantity;
 namespace Engine.Quantities {
     // Understands a specific metric
     public class Unit {
-        public static readonly Unit Centimeter = new();
-        
+        public static readonly Unit Millimeter = new();
+        public static readonly Unit Centimeter = new(10,Millimeter);
+
         public static readonly Unit Kilogram = new();
         
         public static readonly Unit Bmi = new();
@@ -55,7 +56,11 @@ namespace ExtensionMethods.Probability.Quantities {
     public static class QuantityConstructors {
         public static RatioQuantity Centimeters(this int amount) => new(amount, Unit.Centimeter);
         public static RatioQuantity Centimeters(this double amount) => new(amount, Unit.Centimeter);
-        
+
+        public static RatioQuantity Millimeters(this int amount) => new(amount, Unit.Millimeter);
+        public static RatioQuantity Millimeters(this double amount) => new(amount, Unit.Millimeter);
+
+
         public static RatioQuantity Kilograms(this int amount) => new(amount, Unit.Kilogram);
         public static RatioQuantity Kilograms(this double amount) => new(amount, Unit.Kilogram);
         
