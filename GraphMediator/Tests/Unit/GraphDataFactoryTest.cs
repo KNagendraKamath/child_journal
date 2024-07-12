@@ -14,12 +14,20 @@ namespace GraphMediator.Tests.Unit
            var graphData= new GraphFactory(TestCompleteList.completeList,
                 ChildJournalColumns.Age,
                 ChildJournalColumns.Weight,
-                WhoReference.Data[(AgeWeight, "Female")],
+                WhoReference.Data[(AgeWeight, "female")],
                 new TestXRuleSet(), new TestYRuleSet(),
                 new Axis(0, 0.5, 1, "Age"),
                 new Axis(0, 50, 10, "Weight"),
                 new DateTime(2005, 05, 01),
-                new object());
+                new object()).GraphData(TestCompleteList.completeList);
+
+            var graphVisitor = new TestGraphDataVisitor();
+
+            graphData.Accept(graphVisitor);
+
+            Assert.True(graphVisitor.axisDtos.Contains(new TestGraphDataVisitor.AxisDto(0, 4.999315537303217, 1, "Age")));
         }
+
+        
     }
 }
