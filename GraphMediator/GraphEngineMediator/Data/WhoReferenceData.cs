@@ -2,8 +2,18 @@ namespace GraphMediator.GraphEngineMediator;
 
 // Understands WHO-sourced child health statistics
 internal static class WhoReference {
+
+    internal record ReferenceRecord(
+        double age,
+        double negative2,
+        double negative1,
+        double mean,
+        double positive1,
+        double positive2);
+    
     internal static Dictionary<object, List<ReferenceRecord>> Data { get; } = new() {
         {
+            // TODO: We will need gender from PatientInformation
             "Age/Weight/Girls",
             new List<ReferenceRecord> {
                 new(0, 45.4, 47.3, 49.1, 51, 52.9),
@@ -1070,11 +1080,3 @@ internal static class WhoReference {
         }
     };
 }
-
-internal record ReferenceRecord(
-    double age,
-    double negative2,
-    double negative1,
-    double mean,
-    double positive1,
-    double positive2);

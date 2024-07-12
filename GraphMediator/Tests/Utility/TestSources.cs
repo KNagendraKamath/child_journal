@@ -1,11 +1,6 @@
 ﻿using Engine.ResultRecords;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphMediator.GraphEngineMediator;
 using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
+using static GraphMediator.GraphEngineMediator.WhoReference;
 
 namespace GraphMediator.Tests.Utility;
 internal class TestSources

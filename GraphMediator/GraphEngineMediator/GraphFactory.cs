@@ -1,7 +1,7 @@
 ﻿using Engine.ResultRecords;
 using GraphEngine.Graph;
 using GraphEngine.Graph.Extensions;
-using GraphMediator.Tests.Utility;
+using static GraphMediator.GraphEngineMediator.WhoReference;
 using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
 
 namespace GraphMediator.GraphEngineMediator
@@ -10,7 +10,7 @@ namespace GraphMediator.GraphEngineMediator
     {
         private readonly Column _xColumn;
         private readonly Column _yColumn;
-        private readonly List<ReferenceRecord> _referenceRecords;
+        private readonly List<WhoReference.ReferenceRecord> _referenceRecords;
         private readonly RuleSet _xRuleSet;
         private readonly RuleSet _yRuleSet;
         private readonly Axis _defaultXAxis;

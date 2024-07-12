@@ -4,14 +4,11 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-using System;
-using System.Collections.Generic;
 using Engine.Quantities;
 using ExtensionMethods.Probability.Quantities;
 using Xunit;
-using static Engine.Quantities.Unit;
 
-namespace Engine.Tests.Unit;
+namespace GraphMediator.Tests.Unit;
 
 // Ensures Quantities operate correctly
 public class QuantityTest {
@@ -20,7 +17,9 @@ public class QuantityTest {
         Assert.Equal(8.0.Weeks(), 8.0.Weeks());
         Assert.NotEqual(8.Weeks(), 6.0.Weeks());
         Assert.NotEqual(8.Weeks(), new object());
+#pragma warning disable xUnit2000
         Assert.NotEqual(8.Weeks(), null);
+#pragma warning restore xUnit2000
     }
 
     [Fact]

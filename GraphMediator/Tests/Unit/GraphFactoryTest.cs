@@ -25,7 +25,7 @@ namespace GraphMediator.Tests.Unit
                 new Axis(0, 1, 0.1, "Age"),
                 new Axis(0, 1, 0.1, "Weight"),
                 new DateTime(2005, 04, 22),
-                null);
+                "place holder");
             var graphData = factory.GraphData(TestSources.ExaminationData);
             Assert.True(true);
         }

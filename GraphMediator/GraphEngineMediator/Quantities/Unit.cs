@@ -14,6 +14,8 @@ namespace Engine.Quantities {
         
         public static readonly Unit Kilogram = new();
         
+        public static readonly Unit Bmi = new();
+        
         public static readonly Unit Day = new();
         public static readonly Unit Week = new(7, Day);
         // public static readonly Unit Year = new(365.2425, Day);
@@ -56,6 +58,9 @@ namespace ExtensionMethods.Probability.Quantities {
         
         public static RatioQuantity Kilograms(this int amount) => new(amount, Unit.Kilogram);
         public static RatioQuantity Kilograms(this double amount) => new(amount, Unit.Kilogram);
+        
+        public static RatioQuantity BMI(this int amount) => new(amount, Unit.Bmi);
+        public static RatioQuantity BMI(this double amount) => new(amount, Unit.Bmi);
         
         public static RatioQuantity Days(this int amount) => new(amount, Unit.Day);
         public static RatioQuantity Days(this double amount) => new(amount, Unit.Day);
