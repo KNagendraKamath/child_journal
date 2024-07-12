@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GraphMediator.Tests.Unit
 {
-    public class TestGraphDataVisitor: GraphDataVisitor
+    internal class TestGraphDataVisitor: GraphDataVisitor
     {
         private BasicDataSet dataSet;
         private Column xColumn;
@@ -17,13 +17,14 @@ namespace GraphMediator.Tests.Unit
         private object memento;
 
         private List<BasicDataSet> dataSets;
-        private GraphData graphData;
-
         
         public List<AxisDto> axisDtos = new();
 
-
         private BasicDataSet.DataSetRecord record;
+
+        internal TestGraphDataVisitor(GraphData data) {
+            data.Accept(this);
+        }
 
         public void PostVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento)
         {
@@ -36,16 +37,6 @@ namespace GraphMediator.Tests.Unit
         public void PostVisit(List<BasicDataSet> dataSets)
         {
            this.dataSets = dataSets;
-        }
-
-        public void PostVisit(GraphData graphData)
-        {
-            this.graphData = graphData;
-        }
-
-        public void PreVisit(GraphData graphData)
-        {
-            this.graphData = graphData;
         }
 
         public void PreVisit(List<BasicDataSet> dataSets)

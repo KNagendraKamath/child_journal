@@ -33,7 +33,7 @@ namespace GraphEngine.Graph {
 
         public void Accept(GraphDataVisitor visitor)
         {
-            visitor.PreVisit(this, _xColumn,_yColumn,_memento);
+            visitor.PreVisit(this, _xColumn,_yColumn,_memento, Min(), Max());
             foreach(DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
             visitor.Visit(Min(),Max());
             visitor.PostVisit(this, _xColumn,_yColumn,_memento);

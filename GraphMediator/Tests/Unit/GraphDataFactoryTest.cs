@@ -21,9 +21,9 @@ namespace GraphMediator.Tests.Unit
                 new DateTime(2005, 05, 01),
                 new object()).GraphData(TestCompleteList.completeList);
 
-            var graphVisitor = new TestGraphDataVisitor();
+            var graphVisitor = new TestGraphDataVisitor(graphData);
 
-            graphData.Accept(graphVisitor);
+            graphData.Accept(graphVisitor);  // TODO: Pass graphData into visitor as a parameter, and have it automatically do this in the constructor
 
             Assert.True(graphVisitor.axisDtos.Contains(new TestGraphDataVisitor.AxisDto(0, 4.999315537303217, 1, "Age")));
         }
