@@ -1,8 +1,8 @@
 ﻿using Engine.ResultRecords;
 using GraphEngine.Graph;
 using Xunit;
-using static GraphEngine.Tests.Unit.TestColumns;
 using static GraphEngine.Graph.DataSet;
+using static GraphEngine.Tests.Unit.TestDimensions;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -38,14 +38,8 @@ internal class BasicDataSetVisitor : GraphDataVisitor {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(DataSet graphData,
-        Column xColumn,
-        Column yColumn,
-        object memento,
-        double min,
-        double max) {
+    public void PreVisit(DataSet dataSet, Dimension xDim, Dimension yDim, object memento, double min, double max) => 
         record = new RecordDto(min, max);
-    }
 
     internal record RecordDto(double Min, double Max);
 }

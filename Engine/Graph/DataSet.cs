@@ -5,22 +5,22 @@ namespace GraphEngine.Graph {
 // Understands information for a graph
     public class DataSet {
         private readonly List<DataSetRecord> _records;
-        private readonly Column _xColumn;
-        private readonly Column _yColumn;
+        private readonly Dimension _xDim;
+        private readonly Dimension _yDim;
         private readonly object _memento;
 
         public int Count => _records.Count;
 
-        public DataSet(List<DataSetRecord> records, Column xColumn, Column yColumn, object memento) {
+        public DataSet(List<DataSetRecord> records, Dimension xDim, Dimension yDim, object memento) {
             _records = records;
-            _xColumn = xColumn;
-            _yColumn = yColumn;
+            _xDim = xDim;
+            _yDim = yDim;
             _memento = memento;
         }
 
-        internal double Max() => _records.LastOrDefault(defaultValue:new DataSetRecord(_xColumn,0,_yColumn,0)).XValue;
+        internal double Max() => _records.LastOrDefault(defaultValue:new DataSetRecord(_xDim,0,_yDim,0)).XValue;
 
-        internal double Min() => _records.FirstOrDefault(defaultValue: new DataSetRecord(_xColumn, 0, _yColumn, 0)).XValue;
+        internal double Min() => _records.FirstOrDefault(defaultValue: new DataSetRecord(_xDim, 0, _yDim, 0)).XValue;
 
         internal static Axis YAxis(List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) {
             var recordCount = dataSets.Sum(d => d._records.Count());
@@ -32,13 +32,13 @@ namespace GraphEngine.Graph {
 
         public void Accept(GraphDataVisitor visitor)
         {
-            visitor.PreVisit(this, _xColumn,_yColumn,_memento, Min(), Max());
+            visitor.PreVisit(this, _xDim,_yDim,_memento, Min(), Max());
             foreach(DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
             //visitor.Visit(Min(),Max());  // TODO: This is a bit of a hack. If interesting, it should be on PreVisit
-            visitor.PostVisit(this, _xColumn,_yColumn,_memento);
+            visitor.PostVisit(this, _xDim,_yDim,_memento);
         }
 
-        public record DataSetRecord(Column XColumn, double XValue, Column YColumn, double YValue)
+        public record DataSetRecord(Dimension XDim, double XValue, Dimension YDim, double YValue)
         {
             internal void Accept(GraphDataVisitor visitor)
             {

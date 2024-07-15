@@ -12,7 +12,9 @@ namespace GraphMediator.Tests.Unit
         [Fact]
         public void ReferenceDataTest()
         {
-           var graphData= new GraphFactory(TestCompleteList.completeList,
+           var graphData= new GraphFactory(
+               AgeWeight,
+               TestCompleteList.completeList,
                 ChildJournalColumns.Age,
                 ChildJournalColumns.Weight,
                 WhoReference.Data[(AgeWeight, Gender.Female)],

@@ -2,7 +2,6 @@
 using GraphEngine.Graph;
 using GraphEngine.Graph.Extensions;
 using static GraphMediator.GraphEngineMediator.WhoReference;
-using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
 using static GraphEngine.Graph.DataSet;
 using Xunit;
 
@@ -19,9 +18,11 @@ namespace GraphMediator.GraphEngineMediator
         private readonly Axis _defaultYAxis;
         private readonly DateTime _birthdate;
         private readonly object _memento;
+        private readonly GraphSpec _spec;
         private readonly CompleteList _completeList;
 
         public GraphFactory(
+            GraphSpec spec,
             CompleteList completeList,
             Column xColumn, 
             Column yColumn, 
@@ -33,6 +34,7 @@ namespace GraphMediator.GraphEngineMediator
             DateTime birthdate, 
             object memento)
         {
+            _spec = spec;
             _completeList = completeList;
             _xColumn = xColumn;
             _yColumn = yColumn;
@@ -61,38 +63,40 @@ namespace GraphMediator.GraphEngineMediator
                 .Where(r=>xAxis.Contains(r.age))
                 .Select(r=>new List<List<DataSetRecord>>
                 {
-                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.mean)},
-                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.negative1)},
-                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.negative2)},
-                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.positive1)},
-                    new List<DataSetRecord>(){new DataSetRecord(_xColumn, r.age, _yColumn, r.positive2)}
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.mean)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.negative1)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.negative2)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.positive1)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.positive2)}
                 })
                 .ToList();
 
             return dataSetRecords.SelectMany(x =>
-                x).Select(y=>new DataSet(y, _xColumn, _yColumn, _memento)).ToList();
+                x).Select(y=>new DataSet(y, _spec.XDimension, _spec.YDimension, _memento)).ToList();
         }
 
         private DataSet ExaminationDataSet()
         {
-            var records = new RecordExtraction(_completeList, _xColumn, _yColumn).Results();
-            return new DataSet(records, Age, Weight, _memento);
+            var records = new RecordExtraction(_completeList, _xColumn, _yColumn, _spec).Results();
+            return new DataSet(records, _spec.XDimension, _spec.YDimension, _memento);
         }
 
         internal class RecordExtraction : ListVisitor
         {
             private readonly Column _xColumn;
             private readonly Column _yColumn;
+            private readonly GraphSpec _spec;
             private List<DataSetRecord> _records = new();
 
-            internal RecordExtraction(CompleteList completeList, Column xColumn, Column yColumn)
+            internal RecordExtraction(CompleteList completeList, Column xColumn, Column yColumn, GraphSpec spec)
             {
                 _xColumn = xColumn;
                 _yColumn = yColumn;
+                _spec = spec;
                 completeList.Accept(this);
             }
             public void Visit(ResultRecord record, IReadOnlyDictionary<string, object> fieldValues) =>
-                _records.Add(new DataSetRecord(_xColumn, XValue(fieldValues), _yColumn, YValue(fieldValues)));
+                _records.Add(new DataSetRecord(_spec.XDimension, XValue(fieldValues), _spec.YDimension, YValue(fieldValues)));
 
 
             private double YValue(IReadOnlyDictionary<string, object> fieldValues) =>

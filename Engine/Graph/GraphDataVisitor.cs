@@ -8,9 +8,9 @@ public interface GraphDataVisitor {
     void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis) { }
     void Visit(Axis axis, string label, double min, double max, double step) { }
     void PreVisit(List<DataSet> dataSets) { }
-    void PreVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) { }
+    void PreVisit(DataSet dataSet, Dimension xDim, Dimension yDim, object memento, double min, double max) { }
     void Visit(DataSetRecord record) { }
-    void PostVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento) { }
+    void PostVisit(DataSet dataSet, Dimension xDim, Dimension yDim, object memento) { }
     void PostVisit(List<DataSet> dataSets) { }
     void PostVisit(GraphData graphData) { }
 }
