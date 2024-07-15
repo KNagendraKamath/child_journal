@@ -9,6 +9,7 @@ using GraphEngine.Quantities;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using static GraphEngine.Quantities.Unit;
 
 namespace GraphEngine.Tests.Unit;
 
@@ -71,5 +72,11 @@ public class QuantityTest {
         Assert.Equal(55.cm(), 54.9.cm().RoundUp(5.cm()));
         Assert.Equal(55.cm(), 50.1.cm().RoundUp(5.cm()));
         Assert.Equal(1.Years(), 1.Years().RoundUp(2.Months()));
+    }
+
+    [Fact]
+    public void QuantityRecreation() {
+        Assert.Equal(15.mm(), RatioQuantityFrom(15, "mm"));
+        Assert.Equal(3.Months(), RatioQuantityFrom(3, "months"));
     }
 }

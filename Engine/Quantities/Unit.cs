@@ -10,6 +10,11 @@ using static GraphEngine.Quantities.IntervalQuantity;
 namespace GraphEngine.Quantities {
     // Understands a specific metric
     public class Unit {
+        private static readonly Dictionary<string, Unit> AllUnits = new();
+
+        public static RatioQuantity RatioQuantityFrom(double amount, string unitLabel) =>
+            new(amount, AllUnits[unitLabel]);
+
         public static readonly Unit Millimeter = new("mm");
         public static readonly Unit Centimeter = new("cm", 10, Millimeter);
 
@@ -18,7 +23,9 @@ namespace GraphEngine.Quantities {
         public static readonly Unit Bmi = new("BMI");
 
         public static readonly Unit Day = new("days");
+
         public static readonly Unit Week = new("weeks", 7, Day);
+
         // public static readonly Unit Year = new("years", 365.2425, Day);
         public static readonly Unit Year = new("years", 365, Day);
         public static readonly Unit Month = new("months", 1.0 / 12, Year);
@@ -33,9 +40,12 @@ namespace GraphEngine.Quantities {
             _baseUnit = this;
             _baseUnitRatio = 1.0;
             _offset = 0.0;
+            AllUnits[label] = this;
         }
 
-        private Unit(string label, double relativeRatio, Unit relativeUnit) : this(label, relativeRatio, 0.0,
+        private Unit(string label, double relativeRatio, Unit relativeUnit) : this(label,
+            relativeRatio,
+            0.0,
             relativeUnit) { }
 
         private Unit(string label, double relativeRatio, double offset, Unit relativeUnit) {
@@ -43,6 +53,7 @@ namespace GraphEngine.Quantities {
             _baseUnit = relativeUnit._baseUnit;
             _baseUnitRatio = relativeRatio * relativeUnit._baseUnitRatio;
             _offset = offset;
+            AllUnits[label] = this;
         }
 
         public override string ToString() => _label;
