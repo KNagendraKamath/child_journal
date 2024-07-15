@@ -21,7 +21,7 @@ namespace GraphMediator.Tests.Unit
                 new DateTime(2005, 05, 01),
                 new object()).GraphData(TestCompleteList.completeList);
 
-            var graphVisitor = new TestGraphDataVisitor(graphData);
+            var graphVisitor = new TestGraphDataVisitor(graphData);  // TODO: Replace with GraphDataDump
 
             Assert.True(graphVisitor.axisDtos.Contains(new TestGraphDataVisitor.AxisDto(0, 4.999315537303217, 1, "Age")));
         }

@@ -8,7 +8,6 @@ namespace GraphEngine.Graph {
         void PreVisit(List<BasicDataSet> dataSets) { }
         void PreVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) { }
         void Visit(DataSetRecord record) { }
-        void Visit(double min, double max) { }
         void PostVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento) { }
         void PostVisit(List<BasicDataSet> dataSets) { }
         void PostVisit(GraphData graphData) { }

@@ -22,6 +22,10 @@ internal class GraphDataDump : GraphDataVisitor {
     internal GraphDataDump(GraphData data) {
         data.Accept(this);
     }
+    
+    internal GraphDataDump(BasicDataSet dataSet) {
+        dataSet.Accept(this);
+    }
         
     internal GraphDataDump(Axis axis)
     {
@@ -41,7 +45,7 @@ internal class GraphDataDump : GraphDataVisitor {
     }
 
     public void PreVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) {
-        DataSetDTO = new DataSetDto(new(), xColumn, yColumn, min, max, memento);
+        DataSetDTO = new DataSetDto(dataSet.Count, new(), xColumn, yColumn, min, max, memento);
         _dataSets.Add(DataSetDTO);
     }
 
@@ -71,15 +75,16 @@ internal class GraphDataDump : GraphDataVisitor {
         internal readonly double Step;
         internal readonly string Label;
 
-        internal AxisDto(double Min, double Max, double Step, string Label) {
-            this.Min = Min;
-            this.Max = Max;
-            this.Step = Step;
-            this.Label = Label;
+        internal AxisDto(double min, double max, double step, string label) {
+            Min = min;
+            Max = max;
+            Step = step;
+            Label = label;
         }
     }
 
     internal record DataSetDto {
+        internal readonly int Count;
         internal readonly List<DataSetRecord> Records;
         internal readonly Column XColumn;
         internal readonly Column YColumn;
@@ -87,13 +92,14 @@ internal class GraphDataDump : GraphDataVisitor {
         internal readonly double Max;
         internal readonly object Memento;
 
-        internal DataSetDto(List<DataSetRecord> records, Column xColumn, Column yColumn, double min, double max, object memento) {
-            this.Records = records;
+        internal DataSetDto(int count, List<DataSetRecord> records, Column xColumn, Column yColumn, double min, double max, object memento) {
+            Count = count;
+            Records = records;
             XColumn = xColumn;
             YColumn = yColumn;
             Min = min;
             Max = max;
-            this.Memento = memento;
+            Memento = memento;
         }
     }
 }

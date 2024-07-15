@@ -35,7 +35,7 @@ namespace GraphEngine.Graph {
         {
             visitor.PreVisit(this, _xColumn,_yColumn,_memento, Min(), Max());
             foreach(DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
-            visitor.Visit(Min(),Max());
+            //visitor.Visit(Min(),Max());  // TODO: This is a bit of a hack. If interesting, it should be on PreVisit
             visitor.PostVisit(this, _xColumn,_yColumn,_memento);
         }
 
