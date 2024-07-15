@@ -48,7 +48,7 @@ namespace GraphMediator.GraphEngineMediator
         internal GraphData GraphData(CompleteList list)
         {
             var examinationDataSet = ExaminationDataSet();
-            var xAxis = new DataSet(examinationDataSet, _xRuleSet, _defaultXAxis).XAxis();
+            var xAxis = new XAxisBuilder(examinationDataSet, _xRuleSet, _defaultXAxis).XAxis();
             var referenceDataSets = ReferenceDataSets(xAxis);
             referenceDataSets.Add(examinationDataSet);
             var yAxis = referenceDataSets.YAxis(_yRuleSet, _defaultYAxis);
