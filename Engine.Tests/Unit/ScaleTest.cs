@@ -20,7 +20,7 @@ namespace GraphEngine.Tests.Unit {
         private static readonly Dimension d_age = new(
             "age Test",
             Year,
-            new List<RatioQuantity> { 1.Weeks(), 2.Weeks(), 1.Months(), 0.25.Years(), 1.Years(), 2.Years(), 5.Years()});
+            new List<RatioQuantity> { 1.Weeks(), 2.Weeks(), 1.Months(),1.Quarters(), 1.Years(), 2.Years(), 5.Years()});
 
         [Fact]
         public void SimpleMetricsScale() {

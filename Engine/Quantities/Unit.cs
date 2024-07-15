@@ -24,12 +24,11 @@ namespace GraphEngine.Quantities {
         public static readonly Unit Bmi = new("BMI");
 
         public static readonly Unit Day = new("days");
-
         public static readonly Unit Week = new("weeks", 7, Day);
-
         // public static readonly Unit Year = new("years", 365.2425, Day);
         public static readonly Unit Year = new("years", 365, Day);
         public static readonly Unit Month = new("months", 1.0 / 12, Year);
+        public static readonly Unit Quarter = new("quarters", 1.0 / 4.0, Year);
 
         private readonly string _label;
         private readonly Unit _baseUnit;
@@ -93,6 +92,8 @@ namespace ExtensionMethods.Probability.Quantities {
         public static RatioQuantity Weeks(this double amount) => new(amount, Unit.Week);
         public static RatioQuantity Months(this int amount) => new(amount, Unit.Month);
         public static RatioQuantity Months(this double amount) => new(amount, Unit.Month);
+        public static RatioQuantity Quarters(this int amount) => new(amount, Unit.Quarter);
+        public static RatioQuantity Quarters(this double amount) => new(amount, Unit.Quarter);
         public static RatioQuantity Years(this int amount) => new(amount, Unit.Year);
         public static RatioQuantity Years(this double amount) => new(amount, Unit.Year);
     }
