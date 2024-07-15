@@ -25,7 +25,7 @@ public class RuleSetTest
     private void AssertXAxis(int recordCount, double min, double max)
     {
         var dump = new GraphDataDump(new TestRuleSet().Factory(recordCount).Axis(min, max));
-        Assert.Equal(new AxisDto(min, max, 0.1, "month"), dump.axisDto);
+        Assert.Equal(new AxisDto(min, max, 0.1, "month"), dump.AxisDTO);
     }
     private void AssertXAxisThrows(int recordCount, double min, double max)
     {

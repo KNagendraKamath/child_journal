@@ -19,15 +19,15 @@ namespace GraphEngine.Graph {
             _memento = memento;
         }
 
-        internal double Max() => _records.LastOrDefault(defaultValue:new DataSetRecord(_xColumn,0,_yColumn,0)).xValue;
+        internal double Max() => _records.LastOrDefault(defaultValue:new DataSetRecord(_xColumn,0,_yColumn,0)).XValue;
 
-        internal double Min() => _records.FirstOrDefault(defaultValue: new DataSetRecord(_xColumn, 0, _yColumn, 0)).xValue;
+        internal double Min() => _records.FirstOrDefault(defaultValue: new DataSetRecord(_xColumn, 0, _yColumn, 0)).XValue;
 
         internal static Axis YAxis(List<BasicDataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) {
             var recordCount = dataSets.Sum(d => d._records.Count());
             if (recordCount == 0) return defaultYAxis;
-            var min = dataSets.Min(d => d._records.Min(r => r.yValue));
-            var max = dataSets.Max(d => d._records.Max(r => r.yValue));
+            var min = dataSets.Min(d => d._records.Min(r => r.YValue));
+            var max = dataSets.Max(d => d._records.Max(r => r.YValue));
             return ruleSet.Factory(recordCount).Axis(min, max);
         }
 
@@ -39,7 +39,7 @@ namespace GraphEngine.Graph {
             visitor.PostVisit(this, _xColumn,_yColumn,_memento);
         }
 
-        public record DataSetRecord(Column xColumn, double xValue, Column yColumn, double yValue)
+        public record DataSetRecord(Column XColumn, double XValue, Column YColumn, double YValue)
         {
             internal void Accept(GraphDataVisitor visitor)
             {

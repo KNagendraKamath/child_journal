@@ -114,7 +114,7 @@ namespace GraphMediator.GraphEngineMediator
 
             internal List<BasicDataSet.DataSetRecord> Results()
             {
-                _records.Sort((left, right) => left.xValue.CompareTo(right.xValue));
+                _records.Sort((left, right) => left.XValue.CompareTo(right.XValue));
                 return _records;
             }
         }
