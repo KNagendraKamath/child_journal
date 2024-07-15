@@ -4,6 +4,7 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
+using GraphEngine.Graph;
 using GraphEngine.Quantities;
 using static GraphEngine.Quantities.IntervalQuantity;
 
@@ -66,6 +67,8 @@ namespace GraphEngine.Quantities {
         internal int HashCode(double amount) => Math.Round((amount - _offset) * _baseUnitRatio / Epsilon).GetHashCode();
 
         internal bool IsCompatible(Unit other) => this._baseUnit == other._baseUnit;
+        
+        internal void Accept(QuantityVisitor visitor) => visitor.Visit(this, _baseUnit, _baseUnitRatio, _offset, _label);
     }
 }
 

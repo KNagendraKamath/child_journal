@@ -5,6 +5,8 @@
  */
 
 
+using System.Data;
+using GraphEngine.Graph;
 
 namespace GraphEngine.Quantities;
 
@@ -30,4 +32,9 @@ public class RatioQuantity : IntervalQuantity {
         left._amount / left.ConvertedAmount(right);
 
     public override string ToString() => $"{_amount} {_unit}";
+
+    public void Accept(QuantityVisitor visitor) {
+        visitor.Visit(this, _amount, _unit);
+        _unit.Accept(visitor);
+    }
 }

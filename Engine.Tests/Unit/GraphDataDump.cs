@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Engine.ResultRecords;
 using GraphEngine.Graph;
+using GraphEngine.Quantities;
 using static GraphEngine.Graph.BasicDataSet;
 
 // ReSharper disable InconsistentNaming
@@ -100,6 +101,24 @@ internal class GraphDataDump : GraphDataVisitor {
             Min = min;
             Max = max;
             Memento = memento;
+        }
+    }
+
+    private class RatioQuantityDataDump : QuantityVisitor {
+        internal record RatioQuantityDto(double Amount, string Unit);
+        internal RatioQuantityDto? RatioQuantityDTO;
+        private double _amount;
+        
+        internal RatioQuantityDataDump(RatioQuantity quantity) {
+            quantity.Accept(this);
+        }
+
+        public void Visit(RatioQuantity quantity, double amount, Quantities.Unit unit) {
+            _amount = amount;
+        }
+
+        public void Visit(Quantities.Unit unit, Quantities.Unit baseUnit, double baseUnitRatio, double offset, string label) {
+            RatioQuantityDTO = new RatioQuantityDto(_amount, label);
         }
     }
 }
