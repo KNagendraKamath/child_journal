@@ -18,7 +18,7 @@ namespace GraphEngine.Graph
 
         public void Accept(GraphDataVisitor visitor)
         {
-            visitor.Visit(this, min, max, step, label); 
+            visitor.Visit(this, label, min, max, step); 
         }
 
         public bool Contains(double patientAge) => patientAge >= min && patientAge <= max;

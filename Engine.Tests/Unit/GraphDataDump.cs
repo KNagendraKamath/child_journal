@@ -37,7 +37,7 @@ internal class GraphDataDump : GraphDataVisitor {
         _yAxix = yAxis;
     }
 
-    public void Visit(Axis axis, double min, double max, double step, string label)
+    public void Visit(Axis axis, string label, double min, double max, double step)
     {
         var dto = new AxisDto(min, max, step, label);
         if (_xAxis == null || axis == _xAxis) _xAxisDto = dto;

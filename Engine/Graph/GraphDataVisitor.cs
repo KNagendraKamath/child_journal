@@ -4,7 +4,7 @@ using static GraphEngine.Graph.BasicDataSet;
 namespace GraphEngine.Graph {
     public interface GraphDataVisitor {
         void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis) { }
-        void Visit(Axis axis, double min, double max, double step, string label) { }
+        void Visit(Axis axis, string label, double min, double max, double step) { }
         void PreVisit(List<BasicDataSet> dataSets) { }
         void PreVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) { }
         void Visit(DataSetRecord record) { }

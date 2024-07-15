@@ -46,7 +46,7 @@ namespace GraphMediator.Tests.Unit
             this.memento = memento;
         }
 
-        public void Visit(Axis axis, double min, double max, double step, string label)
+        public void Visit(Axis axis, string label, double min, double max, double step)
         {
             this.axisDtos.Add(new AxisDto(min,max,step,label));
         }

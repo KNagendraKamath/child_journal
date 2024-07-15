@@ -27,4 +27,5 @@ public class Dimension
         return new Scale(_label, min.RoundDown(step), max.RoundUp(step), step);
     }
 }
+
 public record Scale(string label, RatioQuantity min, RatioQuantity max, RatioQuantity step);
