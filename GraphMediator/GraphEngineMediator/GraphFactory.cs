@@ -70,13 +70,13 @@ namespace GraphMediator.GraphEngineMediator
                 .ToList();
 
             return dataSetRecords.SelectMany(x =>
-                x).Select(y=>new DataSet(y, _spec.XDimension, _spec.YDimension, _spec.Memento)).ToList();
+                x).Select(y=>new DataSet(y, _spec)).ToList();
         }
 
         private DataSet ExaminationDataSet()
         {
             var records = new RecordExtraction(_completeList, _xColumn, _yColumn, _spec).Results();
-            return new DataSet(records, _spec.XDimension, _spec.YDimension, _spec.Memento);
+            return new DataSet(records, _spec);
         }
 
         internal class RecordExtraction : ListVisitor

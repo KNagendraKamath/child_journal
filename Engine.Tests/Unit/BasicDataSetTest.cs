@@ -11,7 +11,7 @@ namespace GraphEngine.Tests.Unit;
 public class BasicDataSetTest {
     [Fact]
     public void EmptyDataSetTest() {
-        var dataSet = new DataSet([], Age, Weight, new object());
+        var dataSet = new DataSet([], AgeWeight);
         Assert.Equal(new BasicDataSetVisitor.RecordDto(0, 0), new BasicDataSetVisitor(dataSet).record);
     }
 
@@ -24,9 +24,7 @@ public class BasicDataSetTest {
                 new DataSetRecord(Age, 1.3, Weight, 6.32),
                 new DataSetRecord(Age, 1.4, Weight, 5.3)
             ],
-            Age,
-            Weight,
-            new object());
+            AgeWeight);
         Assert.Equal(new BasicDataSetVisitor.RecordDto(0.2, 1.4), new BasicDataSetVisitor(dataSet).record);
     }
 }
@@ -38,7 +36,7 @@ internal class BasicDataSetVisitor : GraphDataVisitor {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(DataSet dataSet, Dimension xDim, Dimension yDim, object memento, double min, double max) => 
+    public void PreVisit(DataSet dataSet, GraphSpec spec, double min, double max) => 
         record = new RecordDto(min, max);
 
     internal record RecordDto(double Min, double Max);

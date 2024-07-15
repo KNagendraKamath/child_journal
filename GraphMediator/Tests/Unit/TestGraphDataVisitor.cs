@@ -6,9 +6,7 @@ namespace GraphMediator.Tests.Unit
     internal class TestGraphDataVisitor: GraphDataVisitor
     {
         private DataSet dataSet;
-        private Column xColumn;
-        private Column yColumn;
-        private object memento;
+        private GraphSpec spec;
 
         private List<DataSet> dataSets;
         
@@ -20,30 +18,15 @@ namespace GraphMediator.Tests.Unit
             data.Accept(this);
         }
 
-        public void PostVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento)
-        {
-            this.dataSet = dataSet;
-            this.xColumn = xColumn;
-            this.yColumn = yColumn;
-            this.memento = memento;
-        }
-
-        public void PostVisit(List<DataSet> dataSets)
-        {
-           this.dataSets = dataSets;
-        }
-
         public void PreVisit(List<DataSet> dataSets)
         {
             this.dataSets = dataSets;
         }
 
-        public void PreVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento)
+        public void PreVisit(DataSet dataSet, GraphSpec spec)
         {
             this.dataSet = dataSet;
-            this.xColumn = xColumn;
-            this.yColumn = yColumn;
-            this.memento = memento;
+            this.spec = spec;
         }
 
         public void Visit(Axis axis, string label, double min, double max, double step)

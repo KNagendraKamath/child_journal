@@ -45,8 +45,8 @@ internal class GraphDataDump : GraphDataVisitor {
         else _yAxixDto = dto;
     }
 
-    public void PreVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) {
-        DataSetDTO = new DataSetDto(dataSet.Count, new(), xColumn, yColumn, min, max, memento);
+    public void PreVisit(DataSet dataSet, GraphSpec spec, double min, double max) {
+        DataSetDTO = new DataSetDto(dataSet.Count, new(), spec, min, max);
         _dataSets.Add(DataSetDTO);
     }
 
@@ -87,20 +87,16 @@ internal class GraphDataDump : GraphDataVisitor {
     internal record DataSetDto {
         internal readonly int Count;
         internal readonly List<DataSetRecord> Records;
-        internal readonly Column XColumn;
-        internal readonly Column YColumn;
+        internal readonly GraphSpec Spec;
         internal readonly double Min;
         internal readonly double Max;
-        internal readonly object Memento;
 
-        internal DataSetDto(int count, List<DataSetRecord> records, Column xColumn, Column yColumn, double min, double max, object memento) {
+        internal DataSetDto(int count, List<DataSetRecord> records, GraphSpec spec, double min, double max) {
             Count = count;
             Records = records;
-            XColumn = xColumn;
-            YColumn = yColumn;
+            Spec = spec;
             Min = min;
             Max = max;
-            Memento = memento;
         }
     }
 
