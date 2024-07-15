@@ -3,7 +3,7 @@ using Engine.ResultRecords;
 namespace GraphEngine.Graph {
 
 // Understands information for a graph
-    public class BasicDataSet {
+    public class DataSet {
         private readonly List<DataSetRecord> _records;
         private readonly Column _xColumn;
         private readonly Column _yColumn;
@@ -11,7 +11,7 @@ namespace GraphEngine.Graph {
 
         public int Count => _records.Count;
 
-        public BasicDataSet(List<DataSetRecord> records, Column xColumn, Column yColumn, object memento) {
+        public DataSet(List<DataSetRecord> records, Column xColumn, Column yColumn, object memento) {
             _records = records;
             _xColumn = xColumn;
             _yColumn = yColumn;
@@ -22,7 +22,7 @@ namespace GraphEngine.Graph {
 
         internal double Min() => _records.FirstOrDefault(defaultValue: new DataSetRecord(_xColumn, 0, _yColumn, 0)).XValue;
 
-        internal static Axis YAxis(List<BasicDataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) {
+        internal static Axis YAxis(List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) {
             var recordCount = dataSets.Sum(d => d._records.Count());
             if (recordCount == 0) return defaultYAxis;
             var min = dataSets.Min(d => d._records.Min(r => r.YValue));
@@ -54,8 +54,8 @@ namespace GraphEngine.Graph.Extensions
 {
     public static class DataSetExtensions
     {
-        public static Axis YAxis(this List<BasicDataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) => 
-            BasicDataSet.YAxis(dataSets, ruleSet, defaultYAxis);
+        public static Axis YAxis(this List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) => 
+            DataSet.YAxis(dataSets, ruleSet, defaultYAxis);
 
     }
 }

@@ -2,7 +2,7 @@
 using Engine.ResultRecords;
 using GraphEngine.Graph;
 using GraphEngine.Quantities;
-using static GraphEngine.Graph.BasicDataSet;
+using static GraphEngine.Graph.DataSet;
 
 // ReSharper disable InconsistentNaming
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -24,7 +24,7 @@ internal class GraphDataDump : GraphDataVisitor {
         data.Accept(this);
     }
     
-    internal GraphDataDump(BasicDataSet dataSet) {
+    internal GraphDataDump(DataSet dataSet) {
         dataSet.Accept(this);
     }
         
@@ -45,7 +45,7 @@ internal class GraphDataDump : GraphDataVisitor {
         else _yAxixDto = dto;
     }
 
-    public void PreVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) {
+    public void PreVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) {
         DataSetDTO = new DataSetDto(dataSet.Count, new(), xColumn, yColumn, min, max, memento);
         _dataSets.Add(DataSetDTO);
     }

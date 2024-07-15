@@ -2,7 +2,7 @@
 using GraphEngine.Graph;
 using Xunit;
 using static GraphEngine.Tests.Unit.TestColumns;
-using static GraphEngine.Graph.BasicDataSet;
+using static GraphEngine.Graph.DataSet;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
@@ -11,13 +11,13 @@ namespace GraphEngine.Tests.Unit;
 public class BasicDataSetTest {
     [Fact]
     public void EmptyDataSetTest() {
-        var dataSet = new BasicDataSet([], Age, Weight, new object());
+        var dataSet = new DataSet([], Age, Weight, new object());
         Assert.Equal(new BasicDataSetVisitor.RecordDto(0, 0), new BasicDataSetVisitor(dataSet).record);
     }
 
     [Fact]
     public void NonEmptyDataSet() {
-        var dataSet = new BasicDataSet([
+        var dataSet = new DataSet([
                 new DataSetRecord(Age, 0.2, Weight, 2.5),
                 new DataSetRecord(Age, 1.1, Weight, 8.43),
                 new DataSetRecord(Age, 1.2, Weight, 3.67),
@@ -34,11 +34,11 @@ public class BasicDataSetTest {
 internal class BasicDataSetVisitor : GraphDataVisitor {
     internal RecordDto record;
 
-    internal BasicDataSetVisitor(BasicDataSet dataSet) {
+    internal BasicDataSetVisitor(DataSet dataSet) {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(BasicDataSet graphData,
+    public void PreVisit(DataSet graphData,
         Column xColumn,
         Column yColumn,
         object memento,

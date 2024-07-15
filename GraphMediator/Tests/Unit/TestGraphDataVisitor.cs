@@ -5,22 +5,22 @@ namespace GraphMediator.Tests.Unit
 {
     internal class TestGraphDataVisitor: GraphDataVisitor
     {
-        private BasicDataSet dataSet;
+        private DataSet dataSet;
         private Column xColumn;
         private Column yColumn;
         private object memento;
 
-        private List<BasicDataSet> dataSets;
+        private List<DataSet> dataSets;
         
         public List<AxisDto> axisDtos = new();
 
-        private BasicDataSet.DataSetRecord record;
+        private DataSet.DataSetRecord record;
 
         internal TestGraphDataVisitor(GraphData data) {
             data.Accept(this);
         }
 
-        public void PostVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento)
+        public void PostVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento)
         {
             this.dataSet = dataSet;
             this.xColumn = xColumn;
@@ -28,17 +28,17 @@ namespace GraphMediator.Tests.Unit
             this.memento = memento;
         }
 
-        public void PostVisit(List<BasicDataSet> dataSets)
+        public void PostVisit(List<DataSet> dataSets)
         {
            this.dataSets = dataSets;
         }
 
-        public void PreVisit(List<BasicDataSet> dataSets)
+        public void PreVisit(List<DataSet> dataSets)
         {
             this.dataSets = dataSets;
         }
 
-        public void PreVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento)
+        public void PreVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento)
         {
             this.dataSet = dataSet;
             this.xColumn = xColumn;
@@ -51,7 +51,7 @@ namespace GraphMediator.Tests.Unit
             this.axisDtos.Add(new AxisDto(min,max,step,label));
         }
 
-        public void Visit(BasicDataSet.DataSetRecord record)
+        public void Visit(DataSet.DataSetRecord record)
         {
            this.record = record;
         }

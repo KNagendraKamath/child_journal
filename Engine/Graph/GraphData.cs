@@ -10,9 +10,9 @@ public class GraphData
 {
     private readonly Axis _xAxis;
     private readonly Axis _yAxis;
-    private readonly List<BasicDataSet> _dataSets;
+    private readonly List<DataSet> _dataSets;
 
-    public GraphData(Axis xAxis, Axis yAxis, List<BasicDataSet> dataSets) 
+    public GraphData(Axis xAxis, Axis yAxis, List<DataSet> dataSets) 
     {
         _xAxis = xAxis;
         _yAxis = yAxis;

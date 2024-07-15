@@ -8,9 +8,9 @@ namespace GraphEngine.Graph
     {
         private readonly RuleSet _ruleSet;
         private readonly Axis _defaultXAxis;
-        private readonly BasicDataSet _dataSet;
+        private readonly DataSet _dataSet;
 
-        public XAxisBuilder(BasicDataSet dataSet,RuleSet ruleSet, Axis defaultXAxis)
+        public XAxisBuilder(DataSet dataSet,RuleSet ruleSet, Axis defaultXAxis)
         {
             _dataSet = dataSet;
             _ruleSet = ruleSet;

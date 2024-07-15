@@ -1,17 +1,17 @@
 ﻿using Engine.ResultRecords;
 using GraphEngine.Quantities;
-using static GraphEngine.Graph.BasicDataSet;
+using static GraphEngine.Graph.DataSet;
 
 namespace GraphEngine.Graph;
 
 public interface GraphDataVisitor {
     void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis) { }
     void Visit(Axis axis, string label, double min, double max, double step) { }
-    void PreVisit(List<BasicDataSet> dataSets) { }
-    void PreVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) { }
+    void PreVisit(List<DataSet> dataSets) { }
+    void PreVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento, double min, double max) { }
     void Visit(DataSetRecord record) { }
-    void PostVisit(BasicDataSet dataSet, Column xColumn, Column yColumn, object memento) { }
-    void PostVisit(List<BasicDataSet> dataSets) { }
+    void PostVisit(DataSet dataSet, Column xColumn, Column yColumn, object memento) { }
+    void PostVisit(List<DataSet> dataSets) { }
     void PostVisit(GraphData graphData) { }
 }
 

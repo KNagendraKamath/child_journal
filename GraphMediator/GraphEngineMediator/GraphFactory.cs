@@ -3,7 +3,7 @@ using GraphEngine.Graph;
 using GraphEngine.Graph.Extensions;
 using static GraphMediator.GraphEngineMediator.WhoReference;
 using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
-using static GraphEngine.Graph.BasicDataSet;
+using static GraphEngine.Graph.DataSet;
 using Xunit;
 
 namespace GraphMediator.GraphEngineMediator
@@ -55,7 +55,7 @@ namespace GraphMediator.GraphEngineMediator
             return new GraphData(xAxis, yAxis, referenceDataSets);
         }
 
-        private List<BasicDataSet> ReferenceDataSets(Axis xAxis)
+        private List<DataSet> ReferenceDataSets(Axis xAxis)
         {
             var dataSetRecords =  _referenceRecords
                 .Where(r=>xAxis.Contains(r.age))
@@ -70,13 +70,13 @@ namespace GraphMediator.GraphEngineMediator
                 .ToList();
 
             return dataSetRecords.SelectMany(x =>
-                x).Select(y=>new BasicDataSet(y, _xColumn, _yColumn, _memento)).ToList();
+                x).Select(y=>new DataSet(y, _xColumn, _yColumn, _memento)).ToList();
         }
 
-        private BasicDataSet ExaminationDataSet()
+        private DataSet ExaminationDataSet()
         {
             var records = new RecordExtraction(_completeList, _xColumn, _yColumn).Results();
-            return new BasicDataSet(records, Age, Weight, _memento);
+            return new DataSet(records, Age, Weight, _memento);
         }
 
         internal class RecordExtraction : ListVisitor
@@ -112,7 +112,7 @@ namespace GraphMediator.GraphEngineMediator
                 return (examinationDate - birthDate).TotalDays / 365.25;
             }
 
-            internal List<BasicDataSet.DataSetRecord> Results()
+            internal List<DataSet.DataSetRecord> Results()
             {
                 _records.Sort((left, right) => left.XValue.CompareTo(right.XValue));
                 return _records;
