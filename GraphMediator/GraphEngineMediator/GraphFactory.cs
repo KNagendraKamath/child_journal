@@ -17,7 +17,6 @@ namespace GraphMediator.GraphEngineMediator
         private readonly Axis _defaultXAxis;
         private readonly Axis _defaultYAxis;
         private readonly DateTime _birthdate;
-        private readonly object _memento;
         private readonly GraphSpec _spec;
         private readonly CompleteList _completeList;
 
@@ -31,8 +30,8 @@ namespace GraphMediator.GraphEngineMediator
             RuleSet yRuleSet, 
             Axis defaultXAxis, 
             Axis defaultYAxis, 
-            DateTime birthdate, 
-            object memento)
+            DateTime birthdate
+            )
         {
             _spec = spec;
             _completeList = completeList;
@@ -44,7 +43,6 @@ namespace GraphMediator.GraphEngineMediator
             _defaultXAxis = defaultXAxis;
             _defaultYAxis = defaultYAxis;
             _birthdate = birthdate;
-            _memento = memento;
         }   
 
         internal GraphData GraphData(CompleteList list)
@@ -72,13 +70,13 @@ namespace GraphMediator.GraphEngineMediator
                 .ToList();
 
             return dataSetRecords.SelectMany(x =>
-                x).Select(y=>new DataSet(y, _spec.XDimension, _spec.YDimension, _memento)).ToList();
+                x).Select(y=>new DataSet(y, _spec.XDimension, _spec.YDimension, _spec.Memento)).ToList();
         }
 
         private DataSet ExaminationDataSet()
         {
             var records = new RecordExtraction(_completeList, _xColumn, _yColumn, _spec).Results();
-            return new DataSet(records, _spec.XDimension, _spec.YDimension, _memento);
+            return new DataSet(records, _spec.XDimension, _spec.YDimension, _spec.Memento);
         }
 
         internal class RecordExtraction : ListVisitor

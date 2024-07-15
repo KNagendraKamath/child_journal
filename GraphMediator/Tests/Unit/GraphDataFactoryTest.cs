@@ -21,8 +21,8 @@ namespace GraphMediator.Tests.Unit
                 new TestXRuleSet(), new TestYRuleSet(),
                 new Axis(0, 0.5, 1, "Age"),
                 new Axis(0, 50, 10, "Weight"),
-                new DateTime(2005, 05, 01),
-                new object()).GraphData(TestCompleteList.completeList);
+                new DateTime(2005, 05, 01)
+                ).GraphData(TestCompleteList.completeList);
 
             var graphVisitor = new TestGraphDataVisitor(graphData);  // TODO: Replace with GraphDataDump
 
