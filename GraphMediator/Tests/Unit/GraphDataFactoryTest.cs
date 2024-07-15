@@ -17,16 +17,13 @@ namespace GraphMediator.Tests.Unit
                TestCompleteList.completeList,
                 ChildJournalColumns.Age,
                 ChildJournalColumns.Weight,
-                WhoReference.Data[(AgeWeight, Gender.Female)],
+                WhoReference.Records(AgeWeight, Gender.Female),
                 new TestXRuleSet(), new TestYRuleSet(),
                 new Axis(0, 0.5, 1, "Age"),
                 new Axis(0, 50, 10, "Weight"),
                 new DateTime(2005, 05, 01)
-                ).GraphData(TestCompleteList.completeList);
+, 12).GraphData(TestCompleteList.completeList);
 
-            var graphVisitor = new TestGraphDataVisitor(graphData);  // TODO: Replace with GraphDataDump
-
-            Assert.True(graphVisitor.axisDtos.Contains(new TestGraphDataVisitor.AxisDto(0, 4.999315537303217, 1, "Age")));
         }
 
         

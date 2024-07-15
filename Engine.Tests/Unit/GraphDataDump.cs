@@ -11,13 +11,10 @@ namespace GraphEngine.Tests.Unit;
 
 internal class GraphDataDump : GraphDataVisitor {
     internal GraphDataDto GraphDataDTO;
-    internal AxisDto AxisDTO => _xAxisDto;
     internal DataSetDto DataSetDTO;
     
-    private Axis? _xAxis;
-    private Axis? _yAxix;
-    private AxisDto _xAxisDto;
-    private AxisDto _yAxixDto;
+    private Scale _xAxis;
+    private Scale _yAxis;
     private List<DataSetDto> _dataSets = new();
 
     internal GraphDataDump(GraphData data) {
@@ -27,25 +24,15 @@ internal class GraphDataDump : GraphDataVisitor {
     internal GraphDataDump(DataSet dataSet) {
         dataSet.Accept(this);
     }
-        
-    internal GraphDataDump(Axis axis)
-    {
-        axis.Accept(this);
-    }
 
-    public void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis) {
+    public void PreVisit(GraphData graphData, Scale xAxis, Scale yAxis, List<DataSet> dataSets)
+    {
         _xAxis = xAxis;
-        _yAxix = yAxis;
+        _yAxis = yAxis;
     }
 
-    public void Visit(Axis axis, string label, double min, double max, double step)
+    public void PreVisit(DataSet dataSet, GraphSpec spec, RatioQuantity min, RatioQuantity max)
     {
-        var dto = new AxisDto(min, max, step, label);
-        if (_xAxis == null || axis == _xAxis) _xAxisDto = dto;
-        else _yAxixDto = dto;
-    }
-
-    public void PreVisit(DataSet dataSet, GraphSpec spec, double min, double max) {
         DataSetDTO = new DataSetDto(dataSet.Count, new(), spec, min, max);
         _dataSets.Add(DataSetDTO);
     }
@@ -55,15 +42,15 @@ internal class GraphDataDump : GraphDataVisitor {
     }
 
     public void PostVisit(GraphData graphData) {
-        GraphDataDTO = new GraphDataDto(_xAxisDto, _yAxixDto, _dataSets);
+        GraphDataDTO = new GraphDataDto(_xAxis, _yAxis, _dataSets);
     }
 
     internal class GraphDataDto {
-        internal readonly AxisDto XAxis;
-        internal readonly AxisDto YAxis;
+        internal readonly Scale XAxis;
+        internal readonly Scale YAxis;
         internal readonly List<DataSetDto> DataSets;
 
-        internal GraphDataDto(AxisDto xAxis, AxisDto yAxis, List<DataSetDto> dataSets) {
+        internal GraphDataDto(Scale xAxis, Scale yAxis, List<DataSetDto> dataSets) {
             XAxis = xAxis;
             YAxis = yAxis;
             DataSets = dataSets;

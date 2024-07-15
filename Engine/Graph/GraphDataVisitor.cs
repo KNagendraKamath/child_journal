@@ -5,10 +5,9 @@ using static GraphEngine.Graph.DataSet;
 namespace GraphEngine.Graph;
 
 public interface GraphDataVisitor {
-    void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis) { }
-    void Visit(Axis axis, string label, double min, double max, double step) { }
+    void PreVisit(GraphData graphData, Scale xAxis, Scale yAxis, List<DataSet> dataSets) { }
     void PreVisit(List<DataSet> dataSets) { }
-    void PreVisit(DataSet dataSet, GraphSpec spec, double min, double max) { }
+    void PreVisit(DataSet dataSet, GraphSpec spec, RatioQuantity min, RatioQuantity max) { }
     void Visit(DataSetRecord record) { }
     void PostVisit(DataSet dataSet, GraphSpec spec) { }
     void PostVisit(List<DataSet> dataSets) { }

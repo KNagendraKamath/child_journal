@@ -9,6 +9,7 @@ namespace GraphMediator.GraphEngineMediator
 {
     internal class GraphFactory
     {
+        internal const int IncrementLimit = 12;
         private readonly Column _xColumn;
         private readonly Column _yColumn;
         private readonly List<WhoReference.ReferenceRecord> _referenceRecords;
@@ -17,21 +18,22 @@ namespace GraphMediator.GraphEngineMediator
         private readonly Axis _defaultXAxis;
         private readonly Axis _defaultYAxis;
         private readonly DateTime _birthdate;
+        private readonly int _maxStepCount;
         private readonly GraphSpec _spec;
         private readonly CompleteList _completeList;
 
         public GraphFactory(
             GraphSpec spec,
             CompleteList completeList,
-            Column xColumn, 
-            Column yColumn, 
-            List<ReferenceRecord> referenceRecords, 
+            Column xColumn,
+            Column yColumn,
+            List<ReferenceRecord> referenceRecords,
             RuleSet xRuleSet,
-            RuleSet yRuleSet, 
-            Axis defaultXAxis, 
-            Axis defaultYAxis, 
-            DateTime birthdate
-            )
+            RuleSet yRuleSet,
+            Axis defaultXAxis,
+            Axis defaultYAxis,
+            DateTime birthdate,
+            int maxStepCount)
         {
             _spec = spec;
             _completeList = completeList;
@@ -43,29 +45,30 @@ namespace GraphMediator.GraphEngineMediator
             _defaultXAxis = defaultXAxis;
             _defaultYAxis = defaultYAxis;
             _birthdate = birthdate;
+            _maxStepCount = maxStepCount;
         }   
 
         internal GraphData GraphData(CompleteList list)
         {
             var examinationDataSet = ExaminationDataSet();
-            var xAxis = new XAxisBuilder(examinationDataSet, _xRuleSet, _defaultXAxis).XAxis();
+            var xAxis = examinationDataSet.Axis(_maxStepCount);
             var referenceDataSets = ReferenceDataSets(xAxis);
             referenceDataSets.Add(examinationDataSet);
             var yAxis = referenceDataSets.YAxis(_yRuleSet, _defaultYAxis);
             return new GraphData(xAxis, yAxis, referenceDataSets);
         }
 
-        private List<DataSet> ReferenceDataSets(Axis xAxis)
+        private List<DataSet> ReferenceDataSets(Scale xAxis)
         {
             var dataSetRecords =  _referenceRecords
-                .Where(r=>xAxis.Contains(r.age))
+                .Where(r=>xAxis.Contains(r.xValue))
                 .Select(r=>new List<List<DataSetRecord>>
                 {
-                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.mean)},
-                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.negative1)},
-                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.negative2)},
-                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.positive1)},
-                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.age, _spec.YDimension, r.positive2)}
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.xValue, _spec.YDimension, r.mean)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.xValue, _spec.YDimension, r.negative1)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.xValue, _spec.YDimension, r.negative2)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.xValue, _spec.YDimension, r.positive1)},
+                    new List<DataSetRecord>(){new DataSetRecord(_spec.XDimension, r.xValue, _spec.YDimension, r.positive2)}
                 })
                 .ToList();
 

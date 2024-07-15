@@ -1,4 +1,5 @@
 using Engine.ResultRecords;
+using GraphEngine.Quantities;
 
 namespace GraphEngine.Graph {
 
@@ -14,27 +15,30 @@ namespace GraphEngine.Graph {
             _spec = spec;
         }
 
-        internal double Max() => _records.LastOrDefault(defaultValue:new DataSetRecord(_spec.XDimension, 0,_spec.YDimension,0)).XValue;
+        internal RatioQuantity Max() => _records.Last().XValue;
 
-        internal double Min() => _records.FirstOrDefault(defaultValue: new DataSetRecord(_spec.XDimension, 0, _spec.YDimension, 0)).XValue;
+        internal RatioQuantity Min() => _records.First().XValue;
 
-        internal static Axis YAxis(List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) {
+        internal static Scale YAxis(List<DataSet> dataSets, int maxStepCount) {
             var recordCount = dataSets.Sum(d => d._records.Count());
-            if (recordCount == 0) return defaultYAxis;
+            if (recordCount == 0) return dataSets.First()._spec.YDimension.DefaultAxis(maxStepCount);
             var min = dataSets.Min(d => d._records.Min(r => r.YValue));
             var max = dataSets.Max(d => d._records.Max(r => r.YValue));
-            return ruleSet.Factory(recordCount).Axis(min, max);
+            return dataSets.First()._spec.YDimension.Axis(min, max, maxStepCount);
         }
-
+        public Scale Axis(int maxStepCount) => 
+            _records.Count() == 0 
+            ? _spec.XDimension.DefaultAxis(maxStepCount) 
+            : _spec.XDimension.Axis(Min(), Max(), maxStepCount);
         public void Accept(GraphDataVisitor visitor)
         {
-            visitor.PreVisit(this, _spec, Min(), Max());
+            visitor.PreVisit(this, _spec, TODO, TODO);
             foreach(DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
             //visitor.Visit(Min(),Max());  // TODO: This is a bit of a hack. If interesting, it should be on PreVisit
             visitor.PostVisit(this, _spec);
         }
 
-        public record DataSetRecord(Dimension XDim, double XValue, Dimension YDim, double YValue)
+        public record DataSetRecord(Dimension XDim, RatioQuantity XValue, Dimension YDim, RatioQuantity YValue)
         {
             internal void Accept(GraphDataVisitor visitor)
             {
@@ -50,7 +54,7 @@ namespace GraphEngine.Graph.Extensions
 {
     public static class DataSetExtensions
     {
-        public static Axis YAxis(this List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) => 
+        public static Scale YAxis(this List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) => 
             DataSet.YAxis(dataSets, ruleSet, defaultYAxis);
 
     }

@@ -15,12 +15,12 @@ namespace GraphEngine.Tests.Unit {
         private static readonly Dimension d_cm = new(
             "cm Test",
             Centimeter,
-            new List<RatioQuantity> { 1.cm(), 5.cm(), 10.cm(), 20.cm(), 50.cm() });
+            new List<RatioQuantity> { 1.cm(), 5.cm(), 10.cm(), 20.cm(), 50.cm() }, 0.Months(), 5.Months());
         
         private static readonly Dimension d_age = new(
             "age Test",
             Year,
-            new List<RatioQuantity> { 1.Weeks(), 2.Weeks(), 1.Months(),1.Quarters(), 1.Years(), 2.Years(), 5.Years()});
+            new List<RatioQuantity> { 1.Weeks(), 2.Weeks(), 1.Months(), 1.Quarters(), 1.Years(), 2.Years(), 5.Years() }, 0.Months(), 5.Months());
 
         [Fact]
         public void SimpleMetricsScale() {

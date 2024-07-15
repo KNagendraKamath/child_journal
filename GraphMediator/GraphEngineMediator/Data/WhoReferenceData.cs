@@ -1,4 +1,5 @@
 using GraphEngine.Graph;
+using GraphEngine.Quantities;
 using GraphMediator.Stubs;
 using static GraphMediator.GraphEngineMediator.Data.ChildJournalGraphSpec;
 
@@ -6,20 +7,38 @@ namespace GraphMediator.GraphEngineMediator;
 
 // Understands WHO-sourced child health statistics
 internal static class WhoReference {
+    internal static List<ReferenceRecord> Records(GraphSpec spec, Gender gender) => 
+        Data[(spec, gender)].Select(rr =>
+        new ReferenceRecord(
+            spec.XDimension.Quantity(rr.xValue),
+            spec.YDimension.Quantity(rr.negative2),
+            spec.YDimension.Quantity(rr.negative1),
+            spec.YDimension.Quantity(rr.mean),
+            spec.YDimension.Quantity(rr.positive1),
+            spec.YDimension.Quantity(rr.positive2)
+            )).ToList();
 
     internal record ReferenceRecord(
-        double age,
+        RatioQuantity xValue,
+        RatioQuantity negative2,
+        RatioQuantity negative1,
+        RatioQuantity mean,
+        RatioQuantity positive1,
+        RatioQuantity positive2);
+
+    private record RawReferenceRecord(
+        double xValue,
         double negative2,
         double negative1,
         double mean,
         double positive1,
         double positive2);
     
-    internal static Dictionary< (GraphSpec,Gender) , List<ReferenceRecord>> Data { get; } = new() {
+    private static Dictionary< (GraphSpec,Gender) , List<RawReferenceRecord>> Data { get; } = new() {
         {
             // TODO: We will need gender from PatientInformation
             (AgeWeight,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 45.4, 47.3, 49.1, 51, 52.9),
                 new(0.019178082, 46.6, 48.4, 50.3, 52.2, 54.1),
                 new(0.038356164, 47.7, 49.6, 51.5, 53.4, 55.3),
@@ -95,7 +114,7 @@ internal static class WhoReference {
             }
         }, {
             (AgeWeight,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 2.5, 2.9, 3.3, 3.9, 4.4),
                 new(0.019178082, 2.6, 3, 3.5, 4, 4.6),
                 new(0.038356164, 2.8, 3.2, 3.8, 4.3, 4.9),
@@ -171,7 +190,7 @@ internal static class WhoReference {
             }
         }, {
            (AgeHeight,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 45.4, 47.3, 49.1, 51, 52.9),
                 new(0.019178082, 46.6, 48.4, 50.3, 52.2, 54.1),
                 new(0.038356164, 47.7, 49.6, 51.5, 53.4, 55.3),
@@ -247,7 +266,7 @@ internal static class WhoReference {
             }
         }, {
             (AgeHeight,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 46.1, 48, 49.9, 51.8, 53.7),
                 new(0.019178082, 47.3, 49.2, 51.1, 53, 54.9),
                 new(0.038356164, 48.5, 50.4, 52.3, 54.3, 56.2),
@@ -323,7 +342,7 @@ internal static class WhoReference {
             }
         }, {
            (AgeBMI,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 11.1, 12.2, 13.3, 14.6, 16.1),
                 new(0.019178082, 10.7, 11.9, 13.2, 14.5, 15.9),
                 new(0.038356164, 11, 12.2, 13.5, 14.8, 16.2),
@@ -399,7 +418,7 @@ internal static class WhoReference {
             }
         }, {
             (AgeBMI,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 11.1, 12.2, 13.4, 14.8, 16.3),
                 new(0.019178082, 10.8, 12.1, 13.3, 14.7, 16.1),
                 new(0.038356164, 11.2, 12.4, 13.6, 15, 16.4),
@@ -475,7 +494,7 @@ internal static class WhoReference {
             }
         }, {
             (AgeHeadCircumference,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 31.5, 32.7, 33.9, 35.1, 36.2),
                 new(0.019178082, 32.2, 33.4, 34.6, 35.7, 36.9),
                 new(0.038356164, 32.9, 34.1, 35.2, 36.4, 37.5),
@@ -551,7 +570,7 @@ internal static class WhoReference {
             }
         }, {
             (AgeHeadCircumference,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(0, 31.9, 33.2, 34.5, 35.7, 37),
                 new(0.019178082, 32.7, 33.9, 35.2, 36.4, 37.6),
                 new(0.038356164, 33.5, 34.7, 35.9, 37, 38.2),
@@ -627,7 +646,7 @@ internal static class WhoReference {
             }
         }, {
            (HeightWeight,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(49.1, 2.4, 2.8, 3.2, 3.7, 4.2),
                 new(50.3, 2.5, 2.9, 3.3, 3.9, 4.4),
                 new(51.5, 2.7, 3.1, 3.6, 4.1, 4.7),
@@ -703,7 +722,7 @@ internal static class WhoReference {
             }
         }, {
             (HeightWeight,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(49.9, 2.5, 2.9, 3.3, 3.9, 4.4),
                 new(51.1, 2.6, 3, 3.5, 4, 4.6),
                 new(52.3, 2.8, 3.2, 3.8, 4.3, 4.9),
@@ -779,7 +798,7 @@ internal static class WhoReference {
             }
         }, {
             (HeightHeadCircumference,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(49.1, 31.5, 32.7, 33.9, 35.1, 36.2),
                 new(50.3, 32.2, 33.4, 34.6, 35.7, 36.9),
                 new(51.5, 32.9, 34.1, 35.2, 36.4, 37.5),
@@ -855,7 +874,7 @@ internal static class WhoReference {
             }
         }, {
             (HeightHeadCircumference,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(49.9, 31.9, 33.2, 34.5, 35.7, 37),
                 new(51.1, 32.7, 33.9, 35.2, 36.4, 37.6),
                 new(52.3, 33.5, 34.7, 35.9, 37, 38.2),
@@ -931,7 +950,7 @@ internal static class WhoReference {
             }
         }, {
            (WeightHeadCircumference,Gender.Female),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(3.2, 31.5, 32.7, 33.9, 35.1, 36.2),
                 new(3.3, 32.2, 33.4, 34.6, 35.7, 36.9),
                 new(3.6, 32.9, 34.1, 35.2, 36.4, 37.5),
@@ -1007,7 +1026,7 @@ internal static class WhoReference {
             }
         }, {
             (WeightHeadCircumference,Gender.Male),
-            new List<ReferenceRecord> {
+            new List<RawReferenceRecord> {
                 new(3.3, 31.9, 33.2, 34.5, 35.7, 37),
                 new(3.5, 32.7, 33.9, 35.2, 36.4, 37.6),
                 new(3.8, 33.5, 34.7, 35.9, 37, 38.2),

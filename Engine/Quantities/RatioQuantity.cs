@@ -37,4 +37,14 @@ public class RatioQuantity : IntervalQuantity {
         visitor.Visit(this, _amount, _unit);
         _unit.Accept(visitor);
     }
+    public static bool operator >=(RatioQuantity left, RatioQuantity right)
+    {
+        if(left.Equals(right)) return true;
+        return left._amount >= left.ConvertedAmount(right);
+    }
+    public static bool operator <=(RatioQuantity left, RatioQuantity right)
+    {
+        if (left.Equals(right)) return true;
+        return left._amount <= left.ConvertedAmount(right);
+    }
 }
