@@ -20,7 +20,7 @@ public class GraphData
     }
     public void Accept(GraphDataVisitor visitor)
     {
-        visitor.PreVisit(this, _xAxis, _xAxis, _dataSets);
+        visitor.PreVisit(this, _xAxis, _yAxis, _dataSets);
         foreach (var dataSet in _dataSets) dataSet.Accept(visitor);
         visitor.PostVisit(this);
     }
