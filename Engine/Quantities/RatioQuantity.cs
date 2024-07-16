@@ -1,17 +1,14 @@
-/*
- * Copyright (c) 2024 by Fred George
- * May be used freely except for training; license required for training.
- * @author Fred George  fredgeorge@acm.org
- */
-
-
-using System.Data;
 using GraphEngine.Graph;
+using static GraphEngine.Quantities.Unit;
 
 namespace GraphEngine.Quantities;
 
 // Understands a specific measurement
 public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
+    public interface FriendlyFormatter {
+        List<Unit> Units { get; }
+        string Format(RatioQuantity quantity, List<double> convertedAmounts);
+    };
 
     internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
 
@@ -54,5 +51,8 @@ public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
     }
 
     public RatioQuantity ScaleBy(double factor)=> new RatioQuantity(_amount*factor,_unit);
-    
+
+    public string Format(FriendlyFormatter formatter) => formatter.Format(
+        this,
+        formatter.Units.Select(unit => unit.ConvertedAmount(_amount, _unit)).ToList());
 }
