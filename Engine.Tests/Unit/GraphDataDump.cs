@@ -12,8 +12,8 @@ internal class GraphDataDump : GraphDataVisitor {
     internal GraphDataDto GraphDataDTO;
     internal DataSetDto DataSetDTO;
     
-    private Scale _xAxis;
-    private Scale _yAxis;
+    private Axis _xAxis;
+    private Axis _yAxis;
     private List<DataSetDto> _dataSets = new();
 
     internal GraphDataDump(GraphData data) {
@@ -24,13 +24,13 @@ internal class GraphDataDump : GraphDataVisitor {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(GraphData graphData, Scale xAxis, Scale yAxis, List<DataSet> dataSets)
+    public void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis, List<DataSet> dataSets)
     {
         _xAxis = xAxis;
         _yAxis = yAxis;
     }
 
-    public void PreVisit(DataSet dataSet, GraphSpec spec, Scale xAxis)
+    public void PreVisit(DataSet dataSet, GraphSpec spec, Axis xAxis)
     {
         DataSetDTO = new DataSetDto(dataSet.Count, new(), spec, xAxis);
         _dataSets.Add(DataSetDTO);
@@ -45,11 +45,11 @@ internal class GraphDataDump : GraphDataVisitor {
     }
 
     internal class GraphDataDto {
-        internal readonly Scale XAxis;
-        internal readonly Scale YAxis;
+        internal readonly Axis XAxis;
+        internal readonly Axis YAxis;
         internal readonly List<DataSetDto> DataSets;
 
-        internal GraphDataDto(Scale xAxis, Scale yAxis, List<DataSetDto> dataSets) {
+        internal GraphDataDto(Axis xAxis, Axis yAxis, List<DataSetDto> dataSets) {
             XAxis = xAxis;
             YAxis = yAxis;
             DataSets = dataSets;
@@ -74,13 +74,13 @@ internal class GraphDataDump : GraphDataVisitor {
         internal readonly int Count;
         internal readonly List<DataSetRecord> Records;
         internal readonly GraphSpec Spec;
-        internal readonly Scale Scale;
+        internal readonly Axis Axis;
 
-        internal DataSetDto(int count, List<DataSetRecord> records, GraphSpec spec, Scale scale) {
+        internal DataSetDto(int count, List<DataSetRecord> records, GraphSpec spec, Axis axis) {
             Count = count;
             Records = records;
             Spec = spec;
-            Scale = scale;
+            Axis = axis;
         }
     }
 

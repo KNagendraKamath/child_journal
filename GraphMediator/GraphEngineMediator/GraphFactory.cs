@@ -46,7 +46,7 @@ namespace GraphMediator.GraphEngineMediator {
         }
 
         // This doesn't seem to be working (360 datasets are created)
-        private List<DataSet> ReferenceDataSets(Scale xAxis) {
+        private List<DataSet> ReferenceDataSets(Axis xAxis) {
             List<List<DataSetRecord>> results = [[], [], [], [], []];
             _referenceRecords
                 .Where(r => xAxis.Contains(r.XValue))

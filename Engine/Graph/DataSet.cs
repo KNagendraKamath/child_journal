@@ -18,7 +18,7 @@ namespace GraphEngine.Graph {
 
         internal RatioQuantity Min() => _records.First().XValue;
 
-        internal static Scale YAxis(List<DataSet> dataSets, int maxStepCount) {
+        internal static Axis YAxis(List<DataSet> dataSets, int maxStepCount) {
             var recordCount = dataSets.Sum(d => d._records.Count());
             if (recordCount == 0) return dataSets.First()._spec.YDimension.DefaultAxis(maxStepCount);
             var min = dataSets.Min(d => d._records.Min(r => r.YValue));
@@ -26,7 +26,7 @@ namespace GraphEngine.Graph {
             return dataSets.First()._spec.YDimension.Axis(min, max, maxStepCount);
         }
 
-        public Scale Axis(int maxStepCount) => _records.Any()
+        public Axis Axis(int maxStepCount) => _records.Any()
             ? _spec.XDimension.Axis(Min(), Max(), maxStepCount)
             : _spec.XDimension.DefaultAxis(maxStepCount);
 
@@ -46,7 +46,7 @@ namespace GraphEngine.Graph {
 
 namespace GraphEngine.Graph.Extensions {
     public static class DataSetExtensions {
-        public static Scale YAxis(this List<DataSet> dataSets, int maxStepCount) =>
+        public static Axis YAxis(this List<DataSet> dataSets, int maxStepCount) =>
             DataSet.YAxis(dataSets, maxStepCount);
     }
 }

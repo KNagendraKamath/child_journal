@@ -37,7 +37,7 @@ internal class BasicDataSetVisitor : GraphDataVisitor {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(DataSet dataSet, GraphSpec spec, Scale xAxis) => 
+    public void PreVisit(DataSet dataSet, GraphSpec spec, Axis xAxis) => 
         record = new RecordDto(xAxis.Min, xAxis.Max);
 
     internal record RecordDto(RatioQuantity Min, RatioQuantity Max);

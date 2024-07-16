@@ -6,7 +6,7 @@
 
 namespace GraphEngine.Quantities;
 
-// Understands a specific point on a scale
+// Understands a specific point on a axis
 public class IntervalQuantity  {
     internal const double Epsilon = 1e-10;
     protected readonly double _amount;

@@ -24,19 +24,19 @@ public class Dimension
         _zerRecordMax = zerRecordMax;
     }
 
-    public Scale Axis(RatioQuantity min, RatioQuantity max, int maxStepCount)
+    public Axis Axis(RatioQuantity min, RatioQuantity max, int maxStepCount)
     {
         var diff = max - min;
         var step = _increments.First(i => diff/i <= maxStepCount);
-        return new Scale(_label, min.RoundDown(step), max.RoundUp(step), step);
+        return new Axis(_label, min.RoundDown(step), max.RoundUp(step), step);
     }
 
     public RatioQuantity Quantity(double amount) => new(amount, _unit);
 
-    internal Scale DefaultAxis(int maxStepCount) => Axis(_zeroRecordMin, _zerRecordMax, maxStepCount);
+    internal Axis DefaultAxis(int maxStepCount) => Axis(_zeroRecordMin, _zerRecordMax, maxStepCount);
 }
 
-public record Scale(string Label, RatioQuantity Min, RatioQuantity Max, RatioQuantity Step)
+public record Axis(string Label, RatioQuantity Min, RatioQuantity Max, RatioQuantity Step)
 {
     public bool Contains(RatioQuantity quantity) => quantity >= Min && quantity <= Max;
 }

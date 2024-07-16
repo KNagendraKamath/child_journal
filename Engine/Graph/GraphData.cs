@@ -8,11 +8,11 @@ namespace GraphEngine.Graph;
 
 public class GraphData
 {
-    private readonly Scale _xAxis;
-    private readonly Scale _yAxis;
+    private readonly Axis _xAxis;
+    private readonly Axis _yAxis;
     private readonly List<DataSet> _dataSets;
 
-    public GraphData(Scale xAxis, Scale yAxis, List<DataSet> dataSets) 
+    public GraphData(Axis xAxis, Axis yAxis, List<DataSet> dataSets) 
     {
         _xAxis = xAxis;
         _yAxis = yAxis;
