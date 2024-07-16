@@ -13,7 +13,7 @@ public class Dimension
     private readonly Unit _unit;
     private readonly List<RatioQuantity> _increments;
     private readonly RatioQuantity _zeroRecordMin;
-    private readonly RatioQuantity _zerRecordMax;
+    private readonly RatioQuantity _zeroRecordMax;
 
     public Dimension(string label, Unit unit, List<RatioQuantity> increments, RatioQuantity zeroRecordMin, RatioQuantity zerRecordMax)
     {
@@ -21,7 +21,7 @@ public class Dimension
         _unit = unit;
         _increments = increments;
         _zeroRecordMin = zeroRecordMin;
-        _zerRecordMax = zerRecordMax;
+        _zeroRecordMax = zerRecordMax;
     }
 
     public Axis Axis(RatioQuantity min, RatioQuantity max, int maxStepCount)
@@ -32,13 +32,16 @@ public class Dimension
     }
     public Axis Axis(RatioQuantity singleRecordQuantity, int maxStepCount)
     {
-        var delta = (_zerRecordMax - _zeroRecordMin).ScaleBy(0.5);
-        return Axis(singleRecordQuantity - delta, singleRecordQuantity + delta, maxStepCount);
+        var diff = _zeroRecordMax - _zeroRecordMin;
+        var min = singleRecordQuantity - diff.ScaleBy(0.5);
+        if(min <= Quantity(0)) min = Quantity(0);
+        var max = min + diff;
+        return Axis(min, max, maxStepCount);
     }
 
     public RatioQuantity Quantity(double amount) => new(amount, _unit);
 
-    internal Axis DefaultAxis(int maxStepCount) => Axis(_zeroRecordMin, _zerRecordMax, maxStepCount);
+    internal Axis DefaultAxis(int maxStepCount) => Axis(_zeroRecordMin, _zeroRecordMax, maxStepCount);
 }
 
 public record Axis(string Label, RatioQuantity Min, RatioQuantity Max, RatioQuantity Step)
