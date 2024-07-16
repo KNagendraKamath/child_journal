@@ -30,6 +30,11 @@ public class Dimension
         var step = _increments.First(i => diff/i <= maxStepCount);
         return new Axis(_label, min.RoundDown(step), max.RoundUp(step), step);
     }
+    public Axis Axis(RatioQuantity singleRecordQuantity, int maxStepCount)
+    {
+        var delta = (_zerRecordMax - _zeroRecordMin).ScaleBy(0.5);
+        return Axis(singleRecordQuantity - delta, singleRecordQuantity + delta, maxStepCount);
+    }
 
     public RatioQuantity Quantity(double amount) => new(amount, _unit);
 

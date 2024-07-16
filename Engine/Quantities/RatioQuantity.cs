@@ -52,4 +52,7 @@ public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
         if (this.Equals(other)) return 0;
         return this._amount.CompareTo(this.ConvertedAmount(other!));
     }
+
+    public RatioQuantity ScaleBy(double factor)=> new RatioQuantity(_amount*factor,_unit);
+    
 }

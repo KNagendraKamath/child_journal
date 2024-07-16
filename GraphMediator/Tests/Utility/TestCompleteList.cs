@@ -6,7 +6,7 @@ namespace GraphMediator.Tests.Utility
 {
     public static class TestCompleteList
     {
-        public static CompleteList completeList = new([
+        public static CompleteList MultipleExaminations = new([
             Record((ExaminationDate,"22-04-2005"),(Weight,2.5)),
             Record((ExaminationDate,"20-05-2005"),(Weight,3.67)),
             Record((ExaminationDate,"15-07-2005"),(Weight,5.3)),
@@ -21,7 +21,10 @@ namespace GraphMediator.Tests.Utility
             Record((ExaminationDate,"21-09-2009"),(Weight,15.6)),
             Record((ExaminationDate,"22-04-2010"),(Weight,14.89)),
         ]);
-
+        public static CompleteList SingleExamination = new([
+           Record((ExaminationDate, "22-04-2005"), (Weight, 2.5)),
+        ]);
+        public static CompleteList NoExaminations = new([]);
         private static ResultRecord Record(params (Column column, object value)[] fieldValues)
         {
             return new ResultRecord(fieldValues.ToDictionary(x => x.column.ToString(), x => x.value));

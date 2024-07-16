@@ -66,7 +66,7 @@ namespace GraphMediator.GraphEngineMediator {
             records.Add(new(_spec.XDimension, xValue, _spec.YDimension, yValue));
 
         private DataSet ExaminationDataSet() {
-            var records = new RecordExtraction(_completeList, _xColumn, _yColumn, _spec).Results();
+            var records = new RecordExtraction(_completeList, _xColumn, _yColumn, _spec,_birthdate).Results();
             return new DataSet(records, _spec);
         }
 
@@ -74,12 +74,14 @@ namespace GraphMediator.GraphEngineMediator {
             private readonly Column _xColumn;
             private readonly Column _yColumn;
             private readonly GraphSpec _spec;
+            private readonly DateTime _birthDate;
             private List<DataSetRecord> _records = new();
 
-            internal RecordExtraction(CompleteList completeList, Column xColumn, Column yColumn, GraphSpec spec) {
+            internal RecordExtraction(CompleteList completeList, Column xColumn, Column yColumn, GraphSpec spec, DateTime birthDate) {
                 _xColumn = xColumn;
                 _yColumn = yColumn;
                 _spec = spec;
+                _birthDate = birthDate;
                 completeList.Accept(this);
             }
 
@@ -106,11 +108,8 @@ namespace GraphMediator.GraphEngineMediator {
             private double CalculateAge(string date) {
                 DateTime examinationDate =
                     DateTime.ParseExact(date, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None);
-                DateTime birthDate = DateTime.ParseExact("22-04-2005",
-                    "dd-MM-yyyy",
-                    null,
-                    System.Globalization.DateTimeStyles.None);
-                return (examinationDate - birthDate).TotalDays / 365.25;
+               
+                return (examinationDate - _birthDate).TotalDays / 365.25;
             }
 
             internal List<DataSet.DataSetRecord> Results() {

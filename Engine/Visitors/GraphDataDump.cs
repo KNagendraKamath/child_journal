@@ -6,17 +6,17 @@ using static GraphEngine.Graph.DataSet;
 // ReSharper disable InconsistentNaming
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-namespace GraphEngine.Tests.Unit;
+namespace GraphEngine.Visitors;
 
-internal class GraphDataDump : GraphDataVisitor {
-    internal GraphDataDto GraphDataDTO;
-    internal DataSetDto DataSetDTO;
+public class GraphDataDump : GraphDataVisitor {
+    public GraphDataDto GraphDataDTO;
+    public DataSetDto DataSetDTO;
     
     private Axis _xAxis;
     private Axis _yAxis;
     private List<DataSetDto> _dataSets = new();
 
-    internal GraphDataDump(GraphData data) {
+    public GraphDataDump(GraphData data) {
         data.Accept(this);
     }
     
@@ -44,10 +44,10 @@ internal class GraphDataDump : GraphDataVisitor {
         GraphDataDTO = new GraphDataDto(_xAxis, _yAxis, _dataSets);
     }
 
-    internal class GraphDataDto {
-        internal readonly Axis XAxis;
-        internal readonly Axis YAxis;
-        internal readonly List<DataSetDto> DataSets;
+    public class GraphDataDto {
+        public readonly Axis XAxis;
+        public readonly Axis YAxis;
+        public readonly List<DataSetDto> DataSets;
 
         internal GraphDataDto(Axis xAxis, Axis yAxis, List<DataSetDto> dataSets) {
             XAxis = xAxis;
@@ -70,7 +70,7 @@ internal class GraphDataDump : GraphDataVisitor {
         }
     }
 
-    internal record DataSetDto {
+    public record DataSetDto {
         internal readonly int Count;
         internal readonly List<DataSetRecord> Records;
         internal readonly GraphSpec Spec;

@@ -1,4 +1,6 @@
-﻿using GraphEngine.Graph;
+﻿using ExtensionMethods.Probability.Quantities;
+using GraphEngine.Graph;
+using GraphEngine.Visitors;
 using GraphMediator.GraphEngineMediator;
 using GraphMediator.GraphEngineMediator.Data;
 using GraphMediator.Stubs;
@@ -12,12 +14,45 @@ namespace GraphMediator.Tests.Unit {
         public void ReferenceDataTest() {
             var graphData = new GraphFactory(
                 AgeWeight,
-                TestCompleteList.completeList,
+                TestCompleteList.MultipleExaminations,
                 ChildJournalColumns.Age,
                 ChildJournalColumns.Weight,
                 WhoReference.Records(AgeWeight, Gender.Female),
-                new DateTime(2005, 05, 01),
-                12).GraphData(); 
+                new DateTime(2005, 04, 22),
+                12).GraphData();
+            var dump = new GraphDataDump(graphData);
+            Assert.Equal(new Axis("Age", 0.Years(), 5.Years(), 1.Years()),
+                dump.GraphDataDTO.XAxis);
+        }
+        [Fact]
+        public void NoExaminationData()
+        {
+            var graphData = new GraphFactory(
+                AgeWeight,
+                TestCompleteList.NoExaminations,
+                ChildJournalColumns.Age,
+                ChildJournalColumns.Weight,
+                WhoReference.Records(AgeWeight, Gender.Female),
+                new DateTime(2005, 04, 22),
+                12).GraphData();
+            var dump = new GraphDataDump(graphData);
+            Assert.Equal(new Axis("Age", 0.Months(), 5.Months(), 1.Months()),
+                dump.GraphDataDTO.XAxis);
+        }
+        [Fact]
+        public void OneRecordNoReferenceData()
+        {
+            var graphData = new GraphFactory(
+                AgeWeight,
+                TestCompleteList.SingleExamination,
+                ChildJournalColumns.Age,
+                ChildJournalColumns.Weight,
+                WhoReference.Records(AgeWeight, Gender.Female),
+                new DateTime(1995, 04, 22),
+                12).GraphData();
+            var dump = new GraphDataDump(graphData);
+            Assert.Equal(new Axis("Age", 9.Years()+9.Months(), 10.Years() + 3.Months(), 1.Months()),
+                dump.GraphDataDTO.XAxis);
         }
     }
 }
