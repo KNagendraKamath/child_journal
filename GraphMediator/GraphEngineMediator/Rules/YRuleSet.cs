@@ -8,5 +8,8 @@ internal class YRuleSet(string label) : RuleSet {
 }
 
 internal class SingleRule(string label) : Rule {
-    public void Check(double min, double max) => throw new AxisException(new Axis(min, max, 1, label));
+    public void Check(double min, double max)
+    {
+      
+    }
 }

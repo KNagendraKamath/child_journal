@@ -18,7 +18,6 @@ namespace GraphMediator.Tests.Utility
     {
         public void Check(double min, double max)
         {
-            throw new AxisFactory.AxisException(new Axis(min, max, 1, label));
         }
     }
 }

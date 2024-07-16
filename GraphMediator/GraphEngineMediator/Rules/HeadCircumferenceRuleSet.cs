@@ -17,7 +17,6 @@ namespace GraphMediator.GraphEngineMediator
         public void Check(double min, double max)
         {
             if (max - min > range) return;
-            throw new AxisException(new Axis(min, max, 50, "HeadCircumference"));
         }
     }
 }

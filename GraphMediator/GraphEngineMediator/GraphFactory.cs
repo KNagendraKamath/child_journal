@@ -13,10 +13,6 @@ namespace GraphMediator.GraphEngineMediator {
         private readonly Column _xColumn;
         private readonly Column _yColumn;
         private readonly List<WhoReference.ReferenceRecord> _referenceRecords;
-        private readonly RuleSet _xRuleSet;
-        private readonly RuleSet _yRuleSet;
-        private readonly Axis _defaultXAxis;
-        private readonly Axis _defaultYAxis;
         private readonly DateTime _birthdate;
         private readonly int _maxStepCount;
         private readonly GraphSpec _spec;
@@ -28,21 +24,14 @@ namespace GraphMediator.GraphEngineMediator {
             Column xColumn,
             Column yColumn,
             List<ReferenceRecord> referenceRecords,
-            RuleSet xRuleSet,
-            RuleSet yRuleSet,
-            Axis defaultXAxis,
-            Axis defaultYAxis,
             DateTime birthdate,
-            int maxStepCount) {
+            int maxStepCount)
+        {
             _spec = spec;
             _completeList = completeList;
             _xColumn = xColumn;
             _yColumn = yColumn;
             _referenceRecords = referenceRecords;
-            _xRuleSet = xRuleSet;
-            _yRuleSet = yRuleSet;
-            _defaultXAxis = defaultXAxis;
-            _defaultYAxis = defaultYAxis;
             _birthdate = birthdate;
             _maxStepCount = maxStepCount;
         }

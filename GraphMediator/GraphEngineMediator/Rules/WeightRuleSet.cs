@@ -11,7 +11,6 @@ namespace GraphMediator.GraphEngineMediator
     {
         public void Check(double min, double max)
         {
-            throw new AxisException(new Axis(min, max, 1, "Weight"));
         }
     }
 }
