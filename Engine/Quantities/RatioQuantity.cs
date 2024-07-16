@@ -11,7 +11,7 @@ using GraphEngine.Graph;
 namespace GraphEngine.Quantities;
 
 // Understands a specific measurement
-public class RatioQuantity : IntervalQuantity {
+public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
 
     internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
 
@@ -46,5 +46,10 @@ public class RatioQuantity : IntervalQuantity {
     {
         if (left.Equals(right)) return true;
         return left._amount <= left.ConvertedAmount(right);
+    }
+
+    public int CompareTo(RatioQuantity? other) {
+        if (this.Equals(other)) return 0;
+        return this._amount.CompareTo(this.ConvertedAmount(other!));
     }
 }

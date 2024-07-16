@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Engine.ResultRecords;
 using GraphEngine.Graph;
 using GraphEngine.Quantities;
 using static GraphEngine.Graph.DataSet;
@@ -31,9 +30,9 @@ internal class GraphDataDump : GraphDataVisitor {
         _yAxis = yAxis;
     }
 
-    public void PreVisit(DataSet dataSet, GraphSpec spec, RatioQuantity min, RatioQuantity max)
+    public void PreVisit(DataSet dataSet, GraphSpec spec, Scale xAxis)
     {
-        DataSetDTO = new DataSetDto(dataSet.Count, new(), spec, min, max);
+        DataSetDTO = new DataSetDto(dataSet.Count, new(), spec, xAxis);
         _dataSets.Add(DataSetDTO);
     }
 
@@ -75,15 +74,13 @@ internal class GraphDataDump : GraphDataVisitor {
         internal readonly int Count;
         internal readonly List<DataSetRecord> Records;
         internal readonly GraphSpec Spec;
-        internal readonly double Min;
-        internal readonly double Max;
+        internal readonly Scale Scale;
 
-        internal DataSetDto(int count, List<DataSetRecord> records, GraphSpec spec, double min, double max) {
+        internal DataSetDto(int count, List<DataSetRecord> records, GraphSpec spec, Scale scale) {
             Count = count;
             Records = records;
             Spec = spec;
-            Min = min;
-            Max = max;
+            Scale = scale;
         }
     }
 

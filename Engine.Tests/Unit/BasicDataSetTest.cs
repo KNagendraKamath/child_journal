@@ -1,5 +1,4 @@
-﻿using Engine.ResultRecords;
-using ExtensionMethods.Probability.Quantities;
+﻿using ExtensionMethods.Probability.Quantities;
 using GraphEngine.Graph;
 using GraphEngine.Quantities;
 using Xunit;
@@ -14,7 +13,7 @@ public class BasicDataSetTest {
     [Fact]
     public void EmptyDataSetTest() {
         var dataSet = new DataSet([], AgeWeight);
-        Assert.Equal(new BasicDataSetVisitor.RecordDto(0.Years(), 0.Years()), new BasicDataSetVisitor(dataSet).record);
+        Assert.Equal(new BasicDataSetVisitor.RecordDto(0.Months(), 5.Months()), new BasicDataSetVisitor(dataSet).record);
     }
 
     [Fact]
@@ -38,8 +37,8 @@ internal class BasicDataSetVisitor : GraphDataVisitor {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(DataSet dataSet, GraphSpec spec, RatioQuantity min, RatioQuantity max) => 
-        record = new RecordDto(min, max);
+    public void PreVisit(DataSet dataSet, GraphSpec spec, Scale xAxis) => 
+        record = new RecordDto(xAxis.Min, xAxis.Max);
 
     internal record RecordDto(RatioQuantity Min, RatioQuantity Max);
 }

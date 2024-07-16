@@ -3,40 +3,39 @@ using GraphEngine.Quantities;
 using GraphMediator.Stubs;
 using static GraphMediator.GraphEngineMediator.Data.ChildJournalGraphSpec;
 
-namespace GraphMediator.GraphEngineMediator;
+namespace GraphMediator.GraphEngineMediator.Data;
 
 // Understands WHO-sourced child health statistics
 internal static class WhoReference {
     internal static List<ReferenceRecord> Records(GraphSpec spec, Gender gender) => 
         Data[(spec, gender)].Select(rr =>
         new ReferenceRecord(
-            spec.XDimension.Quantity(rr.xValue),
-            spec.YDimension.Quantity(rr.negative2),
-            spec.YDimension.Quantity(rr.negative1),
-            spec.YDimension.Quantity(rr.mean),
-            spec.YDimension.Quantity(rr.positive1),
-            spec.YDimension.Quantity(rr.positive2)
+            spec.XDimension.Quantity(rr.XValue),
+            spec.YDimension.Quantity(rr.Negative2),
+            spec.YDimension.Quantity(rr.Negative1),
+            spec.YDimension.Quantity(rr.Mean),
+            spec.YDimension.Quantity(rr.Positive1),
+            spec.YDimension.Quantity(rr.Positive2)
             )).ToList();
 
     internal record ReferenceRecord(
-        RatioQuantity xValue,
-        RatioQuantity negative2,
-        RatioQuantity negative1,
-        RatioQuantity mean,
-        RatioQuantity positive1,
-        RatioQuantity positive2);
+        RatioQuantity XValue,
+        RatioQuantity Negative2,
+        RatioQuantity Negative1,
+        RatioQuantity Mean,
+        RatioQuantity Positive1,
+        RatioQuantity Positive2);
 
     private record RawReferenceRecord(
-        double xValue,
-        double negative2,
-        double negative1,
-        double mean,
-        double positive1,
-        double positive2);
+        double XValue,
+        double Negative2,
+        double Negative1,
+        double Mean,
+        double Positive1,
+        double Positive2);
     
     private static Dictionary< (GraphSpec,Gender) , List<RawReferenceRecord>> Data { get; } = new() {
         {
-            // TODO: We will need gender from PatientInformation
             (AgeWeight,Gender.Female),
             new List<RawReferenceRecord> {
                 new(0, 45.4, 47.3, 49.1, 51, 52.9),

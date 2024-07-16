@@ -31,15 +31,12 @@ public class Dimension
         return new Scale(_label, min.RoundDown(step), max.RoundUp(step), step);
     }
 
-    public RatioQuantity Quantity(double amount) => new RatioQuantity(amount, _unit);
+    public RatioQuantity Quantity(double amount) => new(amount, _unit);
 
-    internal Scale DefaultAxis(int maxStepCount)
-    {
-        return Axis(_zeroRecordMin, _zerRecordMax, maxStepCount);
-    }
+    internal Scale DefaultAxis(int maxStepCount) => Axis(_zeroRecordMin, _zerRecordMax, maxStepCount);
 }
 
-public record Scale(string label, RatioQuantity min, RatioQuantity max, RatioQuantity step)
+public record Scale(string Label, RatioQuantity Min, RatioQuantity Max, RatioQuantity Step)
 {
-    public bool Contains(RatioQuantity quantity) => quantity >= min && quantity <= max;
+    public bool Contains(RatioQuantity quantity) => quantity >= Min && quantity <= Max;
 }

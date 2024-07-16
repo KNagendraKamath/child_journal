@@ -2,7 +2,6 @@ using Engine.ResultRecords;
 using GraphEngine.Quantities;
 
 namespace GraphEngine.Graph {
-
 // Understands information for a graph
     public class DataSet {
         private readonly List<DataSetRecord> _records;
@@ -26,36 +25,28 @@ namespace GraphEngine.Graph {
             var max = dataSets.Max(d => d._records.Max(r => r.YValue));
             return dataSets.First()._spec.YDimension.Axis(min, max, maxStepCount);
         }
-        public Scale Axis(int maxStepCount) => 
-            _records.Count() == 0 
-            ? _spec.XDimension.DefaultAxis(maxStepCount) 
-            : _spec.XDimension.Axis(Min(), Max(), maxStepCount);
-        public void Accept(GraphDataVisitor visitor)
-        {
-            visitor.PreVisit(this, _spec, TODO, TODO);
-            foreach(DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
-            //visitor.Visit(Min(),Max());  // TODO: This is a bit of a hack. If interesting, it should be on PreVisit
+
+        public Scale Axis(int maxStepCount) => _records.Any()
+            ? _spec.XDimension.Axis(Min(), Max(), maxStepCount)
+            : _spec.XDimension.DefaultAxis(maxStepCount);
+
+        public void Accept(GraphDataVisitor visitor) {
+            visitor.PreVisit(this, _spec, Axis(12));
+            foreach (DataSetRecord dataSetRecord in _records) dataSetRecord.Accept(visitor);
             visitor.PostVisit(this, _spec);
         }
 
-        public record DataSetRecord(Dimension XDim, RatioQuantity XValue, Dimension YDim, RatioQuantity YValue)
-        {
-            internal void Accept(GraphDataVisitor visitor)
-            {
+        public record DataSetRecord(Dimension XDim, RatioQuantity XValue, Dimension YDim, RatioQuantity YValue) {
+            internal void Accept(GraphDataVisitor visitor) {
                 visitor.Visit(this);
             }
         }
     }
-
-    
 }
 
-namespace GraphEngine.Graph.Extensions
-{
-    public static class DataSetExtensions
-    {
-        public static Scale YAxis(this List<DataSet> dataSets, RuleSet ruleSet, Axis defaultYAxis) => 
-            DataSet.YAxis(dataSets, ruleSet, defaultYAxis);
-
+namespace GraphEngine.Graph.Extensions {
+    public static class DataSetExtensions {
+        public static Scale YAxis(this List<DataSet> dataSets, int maxStepCount) =>
+            DataSet.YAxis(dataSets, maxStepCount);
     }
 }

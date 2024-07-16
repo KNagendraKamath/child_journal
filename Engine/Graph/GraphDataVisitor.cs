@@ -7,7 +7,7 @@ namespace GraphEngine.Graph;
 public interface GraphDataVisitor {
     void PreVisit(GraphData graphData, Scale xAxis, Scale yAxis, List<DataSet> dataSets) { }
     void PreVisit(List<DataSet> dataSets) { }
-    void PreVisit(DataSet dataSet, GraphSpec spec, RatioQuantity min, RatioQuantity max) { }
+    void PreVisit(DataSet dataSet, GraphSpec spec, Scale xAxis) { }
     void Visit(DataSetRecord record) { }
     void PostVisit(DataSet dataSet, GraphSpec spec) { }
     void PostVisit(List<DataSet> dataSets) { }
