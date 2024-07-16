@@ -26,7 +26,7 @@ public class BasicDataSetTest {
                 new DataSetRecord(Age, 1.4.Years(), Weight, 5.3.kg())
             ],
             AgeWeight);
-        Assert.Equal(new BasicDataSetVisitor.RecordDto(0.2.Years(), 1.4.Years()), new BasicDataSetVisitor(dataSet).record);
+        Assert.Equal(new BasicDataSetVisitor.RecordDto(0.Years(), 1.5.Years()), new BasicDataSetVisitor(dataSet).record);
     }
 }
 

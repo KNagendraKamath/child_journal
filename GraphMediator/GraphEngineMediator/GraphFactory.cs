@@ -99,7 +99,7 @@ namespace GraphMediator.GraphEngineMediator {
                     _spec.XDimension,
                     _spec.XDimension.Quantity(XValue(fieldValues)),
                     _spec.YDimension,
-                    _spec.XDimension.Quantity(YValue(fieldValues))
+                    _spec.YDimension.Quantity(YValue(fieldValues))
                 ));
 
             private double YValue(IReadOnlyDictionary<string, object> fieldValues) =>
