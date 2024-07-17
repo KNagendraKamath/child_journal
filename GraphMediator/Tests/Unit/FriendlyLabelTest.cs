@@ -3,6 +3,7 @@ using GraphEngine.Quantities;
 using GraphMediator.GraphEngineMediator;
 using Xunit;
 using static GraphEngine.Quantities.Extensions.RatioQuantityExtensions;
+using static GraphEngine.Quantities.RatioQuantity;
 
 namespace GraphMediator.Tests.Unit;
 
@@ -11,14 +12,23 @@ public class FriendlyLabelTest {
 
     [Fact]
     public void SimpleLabel() {
-        Assert.Equal(["6"], new List<RatioQuantity>{6.cm()}.Format(HeightFormatter.Instance));
-        Assert.Equal(["6"], new List<RatioQuantity>{6.mm()}.Format(HeadCircumferenceFormatter.Instance));
-        Assert.Equal(["6"], new List<RatioQuantity>{6.kg()}.Format(WeightFormatter.Instance));
-        Assert.Equal(["6"], new List<RatioQuantity>{6.BMI()}.Format(BmiFormatter.Instance));
+        AssertLabels(["6"], [6.cm()], HeightFormatter.Instance);
+        AssertLabels(["6"], [6.mm()], HeadCircumferenceFormatter.Instance);
+        AssertLabels(["6"], [6.kg()], WeightFormatter.Instance);
+        AssertLabels(["6"], [6.BMI()], BmiFormatter.Instance);
     }
-    //
-    // [Fact]
-    // public void AgeLabels() {
-    //     Assert.Equal("1w", 1.Weeks().Format(AgeFormatter.Instance));
-    // }
+    
+    [Fact]
+    public void AgeLabels() {
+        AssertLabels(["1w"], [1.Weeks()], AgeFormatter.Instance);
+        AssertLabels(["20w"], [20.Weeks()], AgeFormatter.Instance);
+        AssertLabels(["6m"], [6.Months()], AgeFormatter.Instance);
+        AssertLabels(["12m"], [12.Months()], AgeFormatter.Instance);
+        AssertLabels(["2y"], [2.Years()], AgeFormatter.Instance);
+        AssertLabels(["10y6m"], [10.5.Years()], AgeFormatter.Instance);
+    }
+    
+    private void AssertLabels(List<string> expected, List<RatioQuantity> quantities, FriendlyFormatter formatter) {
+        Assert.Equal(expected, quantities.Format(formatter));
+    }
 }
