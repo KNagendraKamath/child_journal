@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GraphEngine.Graph;
+﻿using GraphEngine.Graph;
 using GraphEngine.Quantities;
 using static GraphEngine.Graph.DataSet;
 
@@ -97,11 +96,11 @@ public class GraphDataDump : GraphDataVisitor {
             quantity.Accept(this);
         }
 
-        public void Visit(RatioQuantity quantity, double amount, Quantities.Unit unit) {
+        public void Visit(RatioQuantity quantity, double amount, Unit unit) {
             _amount = amount;
         }
 
-        public void Visit(Quantities.Unit unit, Quantities.Unit baseUnit, double baseUnitRatio, double offset, string label) {
+        public void Visit(Unit unit, Unit baseUnit, double baseUnitRatio, double offset, string label) {
             RatioQuantityDTO = new RatioQuantityDto(_amount, label);
         }
     }

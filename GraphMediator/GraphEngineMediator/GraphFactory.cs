@@ -45,7 +45,6 @@ namespace GraphMediator.GraphEngineMediator {
             return new GraphData(xAxis, yAxis, referenceDataSets, _spec.Label);
         }
 
-        // This doesn't seem to be working (360 datasets are created)
         private List<DataSet> ReferenceDataSets(Axis xAxis) {
             List<List<DataSetRecord>> results = [[], [], [], [], []];
             _referenceRecords
@@ -95,14 +94,14 @@ namespace GraphMediator.GraphEngineMediator {
 
             private double YValue(IReadOnlyDictionary<string, object> fieldValues) =>
                 fieldValues.TryGetValue(_yColumn.ToString(), out object value)
-                    ? (double)value
+                    ? Convert.ToDouble(value)
                     : BMI((double)fieldValues["Weight"], (double)fieldValues["Height"]);
 
             private double BMI(double weight, double height) => Math.Round(weight / (height / 100 * (height / 100)), 1);
 
             private double XValue(IReadOnlyDictionary<string, object> fieldValues) =>
                 fieldValues.TryGetValue(_xColumn.ToString(), out object value)
-                    ? (double)value
+                    ? Convert.ToDouble(value)
                     : CalculateAge(fieldValues["ExaminationDate"].ToString());
 
             private double CalculateAge(string date) {
