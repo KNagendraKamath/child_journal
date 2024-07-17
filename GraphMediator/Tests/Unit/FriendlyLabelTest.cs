@@ -1,6 +1,8 @@
 using ExtensionMethods.Probability.Quantities;
+using GraphEngine.Quantities;
 using GraphMediator.GraphEngineMediator;
 using Xunit;
+using static GraphEngine.Quantities.Extensions.RatioQuantityExtensions;
 
 namespace GraphMediator.Tests.Unit;
 
@@ -9,10 +11,10 @@ public class FriendlyLabelTest {
 
     [Fact]
     public void SimpleLabel() {
-        Assert.Equal("6", 6.cm().Format(HeightFormatter.Instance));
-        Assert.Equal("6", 6.mm().Format(HeadCircumferenceFormatter.Instance));
-        Assert.Equal("6", 6.kg().Format(WeightFormatter.Instance));
-        Assert.Equal("6", 6.BMI().Format(BmiFormatter.Instance));
+        Assert.Equal(["6"], new List<RatioQuantity>{6.cm()}.Format(HeightFormatter.Instance));
+        Assert.Equal(["6"], new List<RatioQuantity>{6.mm()}.Format(HeadCircumferenceFormatter.Instance));
+        Assert.Equal(["6"], new List<RatioQuantity>{6.kg()}.Format(WeightFormatter.Instance));
+        Assert.Equal(["6"], new List<RatioQuantity>{6.BMI()}.Format(BmiFormatter.Instance));
     }
     //
     // [Fact]

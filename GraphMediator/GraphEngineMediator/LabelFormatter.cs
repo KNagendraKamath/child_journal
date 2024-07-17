@@ -10,8 +10,8 @@ internal class HeightFormatter : FriendlyFormatter {
     
     public List<Unit> Units => [Centimeter];
 
-    public string Format(RatioQuantity quantity, List<double> convertedAmounts) => 
-        convertedAmounts.First().ToString();
+    public List<string> Format(List<(RatioQuantity quantity, List<double> convertedAmounts)> listOfAmounts) => 
+        [listOfAmounts[0].convertedAmounts[0].ToString()];
 }
 
 internal class WeightFormatter : FriendlyFormatter {
@@ -19,8 +19,8 @@ internal class WeightFormatter : FriendlyFormatter {
     
     public List<Unit> Units => [Kilogram];
 
-    public string Format(RatioQuantity quantity, List<double> convertedAmounts) => 
-        convertedAmounts.First().ToString();
+    public List<string> Format(List<(RatioQuantity quantity, List<double> convertedAmounts)> listOfAmounts) => 
+        [listOfAmounts[0].convertedAmounts[0].ToString()];
 }
 
 internal class HeadCircumferenceFormatter : FriendlyFormatter {
@@ -28,8 +28,8 @@ internal class HeadCircumferenceFormatter : FriendlyFormatter {
     
     public List<Unit> Units => [Millimeter];
 
-    public string Format(RatioQuantity quantity, List<double> convertedAmounts) => 
-        convertedAmounts.First().ToString();
+    public List<string> Format(List<(RatioQuantity quantity, List<double> convertedAmounts)> listOfAmounts) => 
+        [listOfAmounts[0].convertedAmounts[0].ToString()];
 }
 
 internal class BmiFormatter : FriendlyFormatter {
@@ -37,6 +37,6 @@ internal class BmiFormatter : FriendlyFormatter {
     
     public List<Unit> Units => [Bmi];
 
-    public string Format(RatioQuantity quantity, List<double> convertedAmounts) => 
-        convertedAmounts.First().ToString();
+    public List<string> Format(List<(RatioQuantity quantity, List<double> convertedAmounts)> listOfAmounts) => 
+        [listOfAmounts[0].convertedAmounts[0].ToString()];
 }
