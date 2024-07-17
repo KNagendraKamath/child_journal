@@ -9,7 +9,6 @@ using Xunit;
 
 namespace GraphMediator.GraphEngineMediator {
     internal class GraphFactory {
-        internal const int IncrementLimit = 12;
         private readonly Column _xColumn;
         private readonly Column _yColumn;
         private readonly List<WhoReference.ReferenceRecord> _referenceRecords;
