@@ -26,7 +26,7 @@ namespace GraphEngine.Graph
             var recordCount = dataSets.Sum(d => d._records.Count());
             if (recordCount == 0) return dataSets.First()._spec._yDimension.DefaultAxis(maxStepCount);
             if (recordCount == 1) return SingleValueAxis(dataSets, maxStepCount);
-            var min = dataSets.Min(d => d._records.Min(r => r._xValue));
+            var min = dataSets.Min(d => d._records.Min(r => r._yValue));
             var max = dataSets.Max(d => d._records.Max(r => r._yValue));
             return dataSets.First()._spec._yDimension.Axis(min, max, maxStepCount);
         }
