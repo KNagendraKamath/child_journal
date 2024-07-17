@@ -9,9 +9,8 @@ namespace GraphEngine.Quantities {
     public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
         public interface FriendlyFormatter {
           List<Unit> Units { get; }
-          List<string> Format(List<List<double>> listOfAmounts);
+          List<(double, string)> Format(List<List<double>> listOfAmounts);
         };
-
         internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
 
         public RatioQuantity RoundDown(RatioQuantity gap) =>

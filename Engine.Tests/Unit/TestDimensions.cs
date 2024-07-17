@@ -28,6 +28,6 @@ namespace GraphEngine.Tests.Unit
             0.Months(),
             5.Months());
 
-        internal static readonly GraphSpec AgeWeight = new GraphSpec(Age, Weight, new object());
+        internal static readonly GraphSpec AgeWeight = new GraphSpec(Age, Weight,"Weight", new object());
     }
 }

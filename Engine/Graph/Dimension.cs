@@ -1,4 +1,5 @@
 ﻿using GraphEngine.Quantities;
+using GraphEngine.Quantities.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,6 +59,12 @@ namespace GraphEngine.Graph
         public override bool Equals(object obj) => this == obj || obj is Axis other && this.Equals(other);
         private bool Equals(Axis other) => _label.Equals(other._label) && _min.Equals(other._min) && _max.Equals(other._max) && _step.Equals(other._step) ;
         public bool Contains(RatioQuantity quantity) => quantity >= _min && quantity <= _max;
-        
+
+        public List<(double, string)> Labels(RatioQuantity.FriendlyFormatter formatter)
+        {
+            var quantities = new List<RatioQuantity>();
+            for (var i = _min; i <= _max; i += _step) quantities.Add(i);
+            return quantities.Format(formatter);
+        }
     }
 }

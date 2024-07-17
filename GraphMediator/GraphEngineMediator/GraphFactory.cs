@@ -45,7 +45,7 @@ namespace GraphMediator.GraphEngineMediator {
             var referenceDataSets = ReferenceDataSets(xAxis);
             referenceDataSets.Add(examinationDataSet);
             var yAxis = referenceDataSets.YAxis(_maxStepCount);
-            return new GraphData(xAxis, yAxis, referenceDataSets, _spec.Label);
+            return new GraphData(xAxis, yAxis, referenceDataSets, _spec._label);
         }
 
         // This doesn't seem to be working (360 datasets are created)

@@ -13,8 +13,8 @@ namespace GraphMediator.GraphEngineMediator
 
         public List<Unit> Units => new List<Unit> { Centimeter };
 
-        public List<string> Format(List<List<double>> listOfAmounts) =>
-          new List<string> { listOfAmounts[0][0].ToString() };
+        public List<(double, string)> Format(List<List<double>> listOfAmounts) =>
+        new List<(double, string)> { (listOfAmounts[0][0], listOfAmounts[0][0].ToString()) };
     }
 
     internal class WeightFormatter : FriendlyFormatter {
@@ -22,8 +22,8 @@ namespace GraphMediator.GraphEngineMediator
 
         public List<Unit> Units => new List<Unit> { Kilogram };
 
-        public List<string> Format(List<List<double>> listOfAmounts) =>
-         new List<string> { listOfAmounts[0][0].ToString() };
+        public List<(double, string)> Format(List<List<double>> listOfAmounts) =>
+        new List<(double, string)> { (listOfAmounts[0][0], listOfAmounts[0][0].ToString()) };
     }
 
     internal class HeadCircumferenceFormatter : FriendlyFormatter {
@@ -31,38 +31,44 @@ namespace GraphMediator.GraphEngineMediator
 
         public List<Unit> Units => new List<Unit> { Millimeter };
 
-        public List<string> Format(List<List<double>> listOfAmounts) =>
-         new List<string> {listOfAmounts[0][0].ToString()};
+        public List<(double, string)> Format(List<List<double>> listOfAmounts) =>
+        new List<(double, string)> { (listOfAmounts[0][0], listOfAmounts[0][0].ToString()) };
     }
 
-    internal class BmiFormatter : FriendlyFormatter {
+    internal class BmiFormatter : FriendlyFormatter
+    {
         public static readonly BmiFormatter Instance = new BmiFormatter();
 
         public List<Unit> Units => new List<Unit> { Bmi };
 
-        public List<string> Format(List<List<double>> listOfAmounts) =>
-         new  List<string> {listOfAmounts[0][0].ToString()};
+        public List<(double, string)> Format(List<List<double>> listOfAmounts) =>
+        new List<(double, string)> { (listOfAmounts[0][0], listOfAmounts[0][0].ToString()) };
     }
 
-    internal class AgeFormatter : FriendlyFormatter {
-        private delegate string Formatter(List<double> convertedAmounts);
+    internal class AgeFormatter : FriendlyFormatter
+    {
+        private delegate (double, string) Formatter(List<double> convertedAmounts);
+        private const int MaxWeeks = 20;
+        private const int MaxMonths = 12;
 
         public static readonly AgeFormatter Instance = new AgeFormatter();
 
         public List<Unit> Units => new List<Unit> { Week, Month, Year };
 
-        public List<string> Format(List<List<double>> listOfAmounts) {
+        public List<(double, string)> Format(List<List<double>> listOfAmounts)
+        {
             Formatter formatter = FormatterFor(listOfAmounts.Last());
             return listOfAmounts.Select(convertedAmounts => formatter.Invoke(convertedAmounts)).ToList();
         }
 
-        private Formatter FormatterFor(List<double> convertedAmounts) {
-            if (convertedAmounts[0] <= 20) return amounts => $"{amounts[0]}w";
-            if (convertedAmounts[1] <= 12) return amounts => $"{amounts[1]}m";
+        private Formatter FormatterFor(List<double> convertedAmounts)
+        {
+            if (convertedAmounts[0] <= MaxWeeks) return amounts => (amounts[0], $"{amounts[0]}w");
+            if (convertedAmounts[1] <= MaxMonths) return amounts => (amounts[1], $"{amounts[1]}m");
             return amounts => {
                 var years = Math.Floor(amounts[2]);
                 var months = amounts[1] - 12 * years;
-                return months == 0 ? $"{years}y" : $"{years}y{months}m";
+                return months == 0 ? (amounts[2], $"{years}y") : (amounts[2], $"{years}y{months}m");
             };
         }
     }
