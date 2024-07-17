@@ -37,6 +37,6 @@ public class FriendlyLabelTest {
     }
     
     private void AssertLabels(List<string> expected, List<RatioQuantity> quantities, FriendlyFormatter formatter) {
-        Assert.Equal(expected, quantities.Format(formatter));
+        Assert.Equal(expected, quantities.Format(formatter).Select(tuple => tuple.Item2));
     }
 }

@@ -6,7 +6,7 @@ namespace GraphEngine.Quantities {
     public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
         public interface FriendlyFormatter {
             public List<Unit> Units { get; }
-            public List<string> Format(List<List<double>> listOfAmounts);
+            public List<(double,string)> Format(List<List<double>> listOfAmounts);
         };
 
         internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
@@ -57,7 +57,7 @@ namespace GraphEngine.Quantities {
 
 namespace GraphEngine.Quantities.Extensions {
     public static class RatioQuantityExtensions {
-        public static List<string> Format(
+        public static List<(double,string)> Format(
             this List<RatioQuantity> quantities,
             RatioQuantity.FriendlyFormatter formatter) 
         {
