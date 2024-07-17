@@ -1,9 +1,5 @@
 ﻿using GraphEngine.Quantities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static GraphEngine.Quantities.Extensions.RatioQuantityExtensions;
 
 namespace GraphEngine.Graph;
 
@@ -47,4 +43,11 @@ public class Dimension
 public record Axis(string Label, RatioQuantity Min, RatioQuantity Max, RatioQuantity Step)
 {
     public bool Contains(RatioQuantity quantity) => quantity >= Min && quantity <= Max;
+
+    public List<(double,string)> Labels(RatioQuantity.FriendlyFormatter formatter)
+    {
+        var quantities = new List<RatioQuantity>();
+        for (var i = Min; i <= Max; i += Step) quantities.Add(i);
+        return quantities.Format(formatter);
+    }
 }
