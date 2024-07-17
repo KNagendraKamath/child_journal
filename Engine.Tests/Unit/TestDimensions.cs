@@ -26,5 +26,5 @@ internal static class TestDimensions {
         0.Months(),
         5.Months());
 
-    internal static readonly GraphSpec AgeWeight = new(Age, Weight, new object());
+    internal static readonly GraphSpec AgeWeight = new(Age, Weight,"Weight", new object());
 }

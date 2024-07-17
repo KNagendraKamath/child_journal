@@ -14,6 +14,7 @@ public class GraphDataDump : GraphDataVisitor {
     
     private Axis _xAxis;
     private Axis _yAxis;
+    private string _label;
     private List<DataSetDto> _dataSets = new();
 
     public GraphDataDump(GraphData data) {
@@ -24,10 +25,11 @@ public class GraphDataDump : GraphDataVisitor {
         dataSet.Accept(this);
     }
 
-    public void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis, List<DataSet> dataSets)
+    public void PreVisit(GraphData graphData, Axis xAxis, Axis yAxis, List<DataSet> dataSets, string label)
     {
         _xAxis = xAxis;
         _yAxis = yAxis;
+        _label = label;
     }
 
     public void PreVisit(DataSet dataSet, GraphSpec spec, Axis xAxis)
@@ -41,18 +43,20 @@ public class GraphDataDump : GraphDataVisitor {
     }
 
     public void PostVisit(GraphData graphData) {
-        GraphDataDTO = new GraphDataDto(_xAxis, _yAxis, _dataSets);
+        GraphDataDTO = new GraphDataDto(_xAxis, _yAxis, _dataSets, _label);
     }
 
     public class GraphDataDto {
         public readonly Axis XAxis;
         public readonly Axis YAxis;
         public readonly List<DataSetDto> DataSets;
+        public readonly string Label;
 
-        internal GraphDataDto(Axis xAxis, Axis yAxis, List<DataSetDto> dataSets) {
+        internal GraphDataDto(Axis xAxis, Axis yAxis, List<DataSetDto> dataSets, string label) {
             XAxis = xAxis;
             YAxis = yAxis;
             DataSets = dataSets;
+            Label = label;
         }
     }
 

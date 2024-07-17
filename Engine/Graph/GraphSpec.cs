@@ -1,3 +1,3 @@
 ﻿namespace GraphEngine.Graph;
 
-public record GraphSpec(Dimension XDimension, Dimension YDimension, object Memento);
+public record GraphSpec(Dimension XDimension, Dimension YDimension, string Label, object Memento);
