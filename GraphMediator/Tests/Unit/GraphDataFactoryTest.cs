@@ -9,6 +9,7 @@ using GraphMediator.Tests.Utility;
 using Xunit;
 using static GraphMediator.Tests.Utility.TestCompleteList;
 using static GraphMediator.GraphEngineMediator.Data.ChildJournalGraphSpec;
+using System;
 
 namespace GraphMediator.Tests.Unit {
     public class GraphDataFactoryTest {

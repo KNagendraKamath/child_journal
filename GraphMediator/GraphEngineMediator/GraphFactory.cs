@@ -6,6 +6,9 @@ using GraphMediator.GraphEngineMediator.Data;
 using static GraphMediator.GraphEngineMediator.Data.WhoReference;
 using static GraphEngine.Graph.DataSet;
 using Xunit;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace GraphMediator.GraphEngineMediator {
     internal class GraphFactory {
@@ -47,35 +50,42 @@ namespace GraphMediator.GraphEngineMediator {
 
         // This doesn't seem to be working (360 datasets are created)
         private List<DataSet> ReferenceDataSets(Axis xAxis) {
-            List<List<DataSetRecord>> results = [[], [], [], [], []];
+            List<List<DataSetRecord>> results = new List<List<DataSetRecord>>() { 
+                new List<DataSetRecord>(), 
+                new List<DataSetRecord>(), 
+                new List<DataSetRecord>(), 
+                new List<DataSetRecord>(), 
+                new List<DataSetRecord>() 
+            };
             _referenceRecords
-                .Where(r => xAxis.Contains(r.XValue))
+                .Where(r => xAxis.Contains(r._xValue))
                 .ToList()
                 .ForEach(r => {
-                        AddRecord(results[0], r.XValue, r.Mean);
-                        AddRecord(results[1], r.XValue, r.Negative1);
-                        AddRecord(results[2], r.XValue, r.Negative2);
-                        AddRecord(results[3], r.XValue, r.Positive1);
-                        AddRecord(results[4], r.XValue, r.Positive2);
+                        AddRecord(results[0], r._xValue, r._mean);
+                        AddRecord(results[1], r._xValue, r._negative1);
+                        AddRecord(results[2], r._xValue, r._negative2);
+                        AddRecord(results[3], r._xValue, r._positive1);
+                        AddRecord(results[4], r._xValue, r._positive2);
                     }
                 );
             return results.Select(records => new DataSet(records, _spec)).ToList();
         }
 
         private void AddRecord(List<DataSetRecord> records, RatioQuantity xValue, RatioQuantity yValue) =>
-            records.Add(new(_spec.XDimension, xValue, _spec.YDimension, yValue));
+            records.Add(new DataSetRecord(_spec._xDimension, xValue, _spec._yDimension, yValue));
 
         private DataSet ExaminationDataSet() {
             var records = new RecordExtraction(_completeList, _xColumn, _yColumn, _spec,_birthdate).Results();
             return new DataSet(records, _spec);
         }
 
-        private class RecordExtraction : ListVisitor {
+        private class RecordExtraction : DefaultListVisitor
+        {
             private readonly Column _xColumn;
             private readonly Column _yColumn;
             private readonly GraphSpec _spec;
             private readonly DateTime _birthDate;
-            private List<DataSetRecord> _records = new();
+            private List<DataSetRecord> _records = new List<DataSetRecord>();
 
             internal RecordExtraction(CompleteList completeList, Column xColumn, Column yColumn, GraphSpec spec, DateTime birthDate) {
                 _xColumn = xColumn;
@@ -85,12 +95,12 @@ namespace GraphMediator.GraphEngineMediator {
                 completeList.Accept(this);
             }
 
-            public void Visit(ResultRecord record, IReadOnlyDictionary<string, object> fieldValues) =>
+            public override void Visit(ResultRecord record, IReadOnlyDictionary<string, object> fieldValues) =>
                 _records.Add(new DataSetRecord(
-                    _spec.XDimension,
-                    _spec.XDimension.Quantity(XValue(fieldValues)),
-                    _spec.YDimension,
-                    _spec.YDimension.Quantity(YValue(fieldValues))
+                    _spec._xDimension,
+                    _spec._xDimension.Quantity(XValue(fieldValues)),
+                    _spec._yDimension,
+                    _spec._yDimension.Quantity(YValue(fieldValues))
                 ));
 
             private double YValue(IReadOnlyDictionary<string, object> fieldValues) =>
@@ -113,7 +123,7 @@ namespace GraphMediator.GraphEngineMediator {
             }
 
             internal List<DataSet.DataSetRecord> Results() {
-                _records.Sort((left, right) => left.XValue.CompareTo(right.XValue));
+                _records.Sort((left, right) => left._xValue.CompareTo(right._xValue));
                 return _records;
             }
         }

@@ -1,19 +1,22 @@
 ﻿using Engine.ResultRecords;
+using System.Collections.Generic;
 using static GraphMediator.GraphEngineMediator.ChildJournalColumns;
 using static GraphMediator.GraphEngineMediator.Data.WhoReference;
 
-namespace GraphMediator.Tests.Utility;
-internal class TestSources
+namespace GraphMediator.Tests.Utility
 {
-    internal static Dictionary<Column, List<ReferenceRecord>> ReferenceData = new Dictionary<Column, List<ReferenceRecord>>
+    internal class TestSources
     {
-        { Weight, new List<ReferenceRecord> {  } },
-        { Height, new List<ReferenceRecord> {  } },
-        { HeadCircumference, new List<ReferenceRecord> {  } },
-        { BMI, new List<ReferenceRecord> {  } }
-    };
+        internal static Dictionary<Column, List<ReferenceRecord>> ReferenceData = new Dictionary<Column, List<ReferenceRecord>>
+        {
+            { Weight, new List<ReferenceRecord> {  } },
+            { Height, new List<ReferenceRecord> {  } },
+            { HeadCircumference, new List<ReferenceRecord> {  } },
+            { BMI, new List<ReferenceRecord> {  } }
+        };
 
-    internal static CompleteList ExaminationData = new CompleteList([]);
+        internal static CompleteList ExaminationData = new CompleteList(new List<ResultRecord>());
+    }
+
+
 }
-
-

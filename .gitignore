@@ -12,3 +12,6 @@ bld/
 [Ll]og/
 
 .DS_Store
+/.vs/child_journal
+/.vs/ProjectEvaluation
+/.vs/VSWorkspaceState.json

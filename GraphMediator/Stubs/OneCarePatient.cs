@@ -1,9 +1,24 @@
-﻿namespace GraphMediator.Stubs;
+﻿using System;
 
-public record OneCarePatient(int Id, DateTime BirthDate,Gender Gender);
-
-public enum Gender
+namespace GraphMediator.Stubs
 {
-    Male,
-    Female
+    public class OneCarePatient
+    {
+        internal readonly int _id;
+        internal readonly DateTime _birthDate;
+        internal readonly Gender _gender;
+
+        public OneCarePatient(int Id, DateTime BirthDate, Gender Gender)
+        {
+            _id = Id;
+            _birthDate = BirthDate;
+            _gender = Gender;
+        }
+    }
+
+    public enum Gender
+    {
+        Male,
+        Female
+    }
 }

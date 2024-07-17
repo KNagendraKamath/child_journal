@@ -1,26 +1,29 @@
 using GraphEngine.Graph;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static GraphEngine.Quantities.Unit;
 
 namespace GraphEngine.Quantities {
     // Understands a specific measurement
     public class RatioQuantity : IntervalQuantity, IComparable<RatioQuantity> {
         public interface FriendlyFormatter {
-            public List<Unit> Units { get; }
-            public List<(double,string)> Format(List<List<double>> listOfAmounts);
+          List<Unit> Units { get; }
+          List<string> Format(List<List<double>> listOfAmounts);
         };
 
         internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
 
         public RatioQuantity RoundDown(RatioQuantity gap) =>
-            new(Math.Floor(Math.Round(gap.ConvertedAmount(this), 10) / gap._amount) * gap._amount, gap._unit);
+            new RatioQuantity(Math.Floor(gap.ConvertedAmount(this) / gap._amount) * gap._amount, gap._unit);
 
         public RatioQuantity RoundUp(RatioQuantity gap) =>
-            new(Math.Ceiling(Math.Round(gap.ConvertedAmount(this), 10) / gap._amount) * gap._amount, gap._unit);
+            new RatioQuantity(Math.Ceiling(Math.Round(gap.ConvertedAmount(this), 10) / gap._amount) * gap._amount, gap._unit);
 
         public static RatioQuantity operator +(RatioQuantity left, RatioQuantity right) =>
-            new(left._amount + left.ConvertedAmount(right), left._unit);
+            new RatioQuantity(left._amount + left.ConvertedAmount(right), left._unit);
 
-        public static RatioQuantity operator -(RatioQuantity q) => new(-q._amount, q._unit);
+        public static RatioQuantity operator -(RatioQuantity q) => new RatioQuantity(-q._amount, q._unit);
 
         public static RatioQuantity operator -(RatioQuantity left, RatioQuantity right) => left + -right;
 
@@ -44,9 +47,9 @@ namespace GraphEngine.Quantities {
             return left._amount <= left.ConvertedAmount(right);
         }
 
-        public int CompareTo(RatioQuantity? other) {
+        public int CompareTo(RatioQuantity other) {
             if (this.Equals(other)) return 0;
-            return this._amount.CompareTo(this.ConvertedAmount(other!));
+            return this._amount.CompareTo(this.ConvertedAmount(other));
         }
 
         public RatioQuantity ScaleBy(double factor) => new RatioQuantity(_amount * factor, _unit);
