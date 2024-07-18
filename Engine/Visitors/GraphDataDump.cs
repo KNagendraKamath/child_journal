@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using GraphEngine.Graph;
+﻿using GraphEngine.Graph;
 using GraphEngine.Quantities;
+using System.Collections.Generic;
 using static GraphEngine.Graph.DataSet;
 
 // ReSharper disable InconsistentNaming
