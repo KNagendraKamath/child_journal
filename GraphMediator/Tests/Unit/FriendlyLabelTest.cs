@@ -62,6 +62,7 @@ namespace GraphMediator.Tests.Unit
         {
             Assert.Equal(expected, quantities.Format(formatter).Select(tuple => tuple.Item2));
         }
+
         private void AssertLabels(List<string> expected, Axis axis, FriendlyFormatter formatter)
         {
             Assert.Equal(expected, axis.Labels(formatter).Select(tuple => tuple.Item2));

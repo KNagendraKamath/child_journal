@@ -42,11 +42,11 @@ namespace GraphMediator.GraphEngineMediator.Data {
             30.mm(),
             55.mm());
 
-        internal static readonly GraphSpec AgeWeight = new GraphSpec(Age, Weight,"Weight", new object());
-        internal static readonly GraphSpec AgeHeight = new GraphSpec(Age, Height,"Height", new object());
+        internal static readonly GraphSpec AgeWeight = new GraphSpec(Age, Weight, "Weight", new object());
+        internal static readonly GraphSpec AgeHeight = new GraphSpec(Age, Height, "Height", new object());
         // ReSharper disable once InconsistentNaming
-        internal static readonly GraphSpec AgeBMI = new GraphSpec(Age, BMI,"BMI", new object());
-        internal static readonly GraphSpec AgeHeadCircumference = new GraphSpec(Age, HeadCircumference,"Head Circumference", new object());
+        internal static readonly GraphSpec AgeBMI = new GraphSpec(Age, BMI, "BMI", new object());
+        internal static readonly GraphSpec AgeHeadCircumference = new GraphSpec(Age, HeadCircumference, "Head Circumference", new object());
         internal static readonly GraphSpec HeightWeight = new GraphSpec(Height, Weight, "Height/Weight", new object());
         internal static readonly GraphSpec HeightHeadCircumference = new GraphSpec(Height, HeadCircumference, "Height/Head Circumference", new object());
         internal static readonly GraphSpec WeightHeadCircumference = new GraphSpec(Weight, HeadCircumference, "Weight/Head Circumference", new object());

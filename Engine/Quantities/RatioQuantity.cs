@@ -11,6 +11,7 @@ namespace GraphEngine.Quantities {
           List<Unit> Units { get; }
           List<(double, string)> Format(List<List<double>> listOfAmounts);
         };
+
         internal RatioQuantity(double amount, Unit unit) : base(amount, unit) { }
 
         public RatioQuantity RoundDown(RatioQuantity gap) =>
@@ -57,11 +58,13 @@ namespace GraphEngine.Quantities {
     }
 }
 
-namespace GraphEngine.Quantities.Extensions {
-    public static class RatioQuantityExtensions {
-        public static List<(double,string)> Format(
+namespace GraphEngine.Quantities.Extensions
+{
+    public static class RatioQuantityExtensions
+    {
+        public static List<(double, string)> Format(
             this List<RatioQuantity> quantities,
-            RatioQuantity.FriendlyFormatter formatter) 
+            RatioQuantity.FriendlyFormatter formatter)
         {
             return formatter.Format(
                 quantities.Select(q => formatter.Units.Select(unit => q.ConvertedAmount(unit)).ToList()).ToList());

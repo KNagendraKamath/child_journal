@@ -35,8 +35,7 @@ namespace GraphMediator.GraphEngineMediator
         new List<(double, string)> { (listOfAmounts[0][0], listOfAmounts[0][0].ToString()) };
     }
 
-    internal class BmiFormatter : FriendlyFormatter
-    {
+    internal class BmiFormatter : FriendlyFormatter {
         public static readonly BmiFormatter Instance = new BmiFormatter();
 
         public List<Unit> Units => new List<Unit> { Bmi };
