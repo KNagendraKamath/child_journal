@@ -85,8 +85,8 @@ namespace GraphMediator.Tests.Unit {
                 ChildJournalColumns.Weight,
                 WhoReference.Records(AgeWeight, Gender.Female),
                 birthDate,
-                maxStepCount
-            ).GraphData();
+                maxStepCount,
+                12).GraphData();
             return new GraphDataDump(graphData);
         }
 
@@ -98,8 +98,8 @@ namespace GraphMediator.Tests.Unit {
                 ChildJournalColumns.Weight,
                 WhoReference.Records(HeightWeight, Gender.Female),
                 birthDate,
-                12
-            ).GraphData();
+                12,
+                12).GraphData();
             return new GraphDataDump(graphData);
         }
     }
