@@ -13,18 +13,19 @@ namespace GraphMediator.GraphEngineMediator {
         private readonly Column _yColumn;
         private readonly List<WhoReference.ReferenceRecord> _referenceRecords;
         private readonly DateTime _birthdate;
-        private readonly int _maxStepCount;
+        private readonly int _xMaxStepCount;
+        private readonly int _yMaxStepCount;
         private readonly GraphSpec _spec;
         private readonly CompleteList _completeList;
 
-        public GraphFactory(
-            GraphSpec spec,
+        public GraphFactory(GraphSpec spec,
             CompleteList completeList,
             Column xColumn,
             Column yColumn,
             List<ReferenceRecord> referenceRecords,
             DateTime birthdate,
-            int maxStepCount)
+            int xMaxStepCount,
+            int yMaxStepCount)
         {
             _spec = spec;
             _completeList = completeList;
@@ -32,15 +33,16 @@ namespace GraphMediator.GraphEngineMediator {
             _yColumn = yColumn;
             _referenceRecords = referenceRecords;
             _birthdate = birthdate;
-            _maxStepCount = maxStepCount;
+            _xMaxStepCount = xMaxStepCount;
+            _yMaxStepCount = yMaxStepCount;
         }
 
         internal GraphData GraphData() {
             var examinationDataSet = ExaminationDataSet();
-            var xAxis = examinationDataSet.Axis(_maxStepCount);
+            var xAxis = examinationDataSet.Axis(_xMaxStepCount);
             var referenceDataSets = ReferenceDataSets(xAxis);
             referenceDataSets.Add(examinationDataSet);
-            var yAxis = referenceDataSets.YAxis(_maxStepCount);
+            var yAxis = referenceDataSets.YAxis(_yMaxStepCount);
             return new GraphData(xAxis, yAxis, referenceDataSets, _spec.Label);
         }
 
