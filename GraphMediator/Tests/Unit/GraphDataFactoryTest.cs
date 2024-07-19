@@ -76,6 +76,15 @@ namespace GraphMediator.Tests.Unit {
                 dump.GraphDataDTO.YAxis);
         }
 
+        [Fact]
+        public void WeeksOnly() { // Examination from 0w to 12w
+            var dump = AgeWeightDump(NewBornExaminations, new DateTime(2005, 04, 22));
+            Assert.Equal(new Axis("Age", 0.Weeks(), 12.Weeks(), 1.Weeks()),
+                dump.GraphDataDTO.XAxis);
+            Assert.Equal(new Axis("Weight", 2.kg(), 8.kg(), 1.kg()),
+                dump.GraphDataDTO.YAxis);
+        }
+
         private GraphDataDump AgeWeightDump(CompleteList list, DateTime birthDate, int maxStepCount = 12) {
             var graphData = new GraphFactory(
                 AgeWeight,

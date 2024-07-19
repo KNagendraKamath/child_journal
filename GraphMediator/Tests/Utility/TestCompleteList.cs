@@ -20,6 +20,11 @@ namespace GraphMediator.Tests.Utility
             Record((ExaminationDate,"21-09-2009"),(Weight,15.6),(Height,95.0)),
             Record((ExaminationDate,"22-03-2010"),(Weight,14.89),(Height,99.7)),
         ]);
+        public static CompleteList NewBornExaminations = new([
+            Record((ExaminationDate,"22-04-2005"),(Weight,2.5),(Height,50.3)),
+            Record((ExaminationDate,"20-05-2005"),(Weight,3.67),(Height,58)),
+            Record((ExaminationDate,"15-07-2005"),(Weight,5.3),(Height,60.0)),
+        ]);
         public static CompleteList SingleExamination(double weight = 2.5) => new([
            Record((ExaminationDate, "22-04-2005"), (Weight, weight)),
         ]);
